@@ -2,9 +2,9 @@ import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 
 export const GET = handleAuth({
   login: handleLogin({
-    returnTo: "/platform"
+    returnTo: "/dashboard"
   }),
   signup: handleLogin({
-    returnTo: "/platform"
+    returnTo: "/dashboard"
   })
 });
