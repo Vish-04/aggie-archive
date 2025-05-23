@@ -53,13 +53,6 @@ exports.onExecutePostUserRegistration = async (event, api) => {
                 name: event.user.name,
                 geoip: event?.request?.geoip || null,
                 ip: event?.request?.ip || null,
-                house_description: "",
-                location: [],
-                property_types: [],
-                clicked: [],
-                saved: [],
-                viewed: [],
-                chats: []
             }
         ])
         .single();
