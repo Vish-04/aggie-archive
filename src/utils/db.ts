@@ -37,3 +37,13 @@ export const fetchPosts = async (thread_id: string): Promise<Post[]> => {
     const data = await res.json();
     return data;
 }
+
+
+export const createPost = async (content: string, user_email: string, thread_id: string, class_id: string): Promise<Post> => {
+    const res = await fetch(`/api/create/post`, {
+        method: 'POST', 
+        body: JSON.stringify({content, user_email, thread_id, class_id})
+    });
+    const data = await res.json();
+    return data;
+}

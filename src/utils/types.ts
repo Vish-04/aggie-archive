@@ -47,4 +47,5 @@ export type Thread = {
     id: string;
     created_at: string;
     class_id: string;
+    name: string;
 }
