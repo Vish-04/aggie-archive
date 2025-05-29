@@ -11,6 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        buttonGray: '#D9D9D9',
+        mainGray: '#EAEAEA',
+      },
+      fontFamily: {
+        'dm-sans': ['"DM Sans"', 'sans-serif'],
       },
     },
   },
