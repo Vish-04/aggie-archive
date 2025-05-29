@@ -86,4 +86,3 @@ export const uploadFile = async (
 
     return document;
 }
-
