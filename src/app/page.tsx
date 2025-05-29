@@ -5,9 +5,9 @@ import { useState } from 'react';
 
 // Auth0 Imports
 import { useUser } from '@auth0/nextjs-auth0/client';
-import Footer from '@/components/footer';
-import Blocks from '@/components/landingPageBlocks'
-import Header from '@/components/header';
+import Footer from '@/components/Footer';
+import Blocks from '@/components/LandingPageBlocks'
+import Header from '@/components/Header';
 
 
 export default function Home() {
