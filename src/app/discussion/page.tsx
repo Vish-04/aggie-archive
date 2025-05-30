@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <div className="p-[5%]">
         <div className="flex gap-[28px] items-center">
-            <h1 className="text-[40px] font-bold">Course Name</h1>
+            <h1 className="text-[40px] font-bold">ECS 162</h1>
             <button type="submit" className="bg-[#D9D9D9] text-black text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
         </div>
         <div className="flex justify-end absolute top-24 right-20">

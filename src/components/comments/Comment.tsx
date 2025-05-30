@@ -27,10 +27,10 @@ const Comment: React.FC<CommentProps> = ({ type }) => {
                     <img className={`${isPreview ? 'w-[45px] h-[45px]' : 'w-[50px] h-[50px]'} `} src="/user.svg" alt="user icon"/> 
                 </div>
                 
-                <p className={`${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>user</p>
+                <p className={`${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>sooperlayne</p>
             </div>
 
-            <h1 className={`font-semibold ${isPreview ? 'text-[24px]' : isReply ? 'hidden' : 'text-[32px]'} `}>Header</h1>
+            <h1 className={`font-semibold ${isPreview ? 'text-[24px]' : isReply ? 'hidden' : 'text-[32px]'} `}>Authentication</h1>
             
             <p className={`${isPreview ? 'line-clamp-1 text-[16px] mb-2' : isReply ? 'pl-[63px] mb-4' : 'text-[18px]'}`}>i’m struggling to figure out how to set up my environment and I was wondering if anyone else figured it out? i already tried following the discussion slides exactly and i keep getting errors with dex and it is making me cry? does anyone else have the issue that I have? i can’t go to the login route without it giving me an error. I’m gonna keep talking about this blah blah blah</p>
             
