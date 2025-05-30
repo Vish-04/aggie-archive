@@ -5,6 +5,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Comment from '@/components/comments/Comment';
 import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
+import Footer from '@/components/Footer';
 const Page = () => {
   const { user } = useUser()
 
@@ -33,6 +34,7 @@ const Page = () => {
             console.log("Submitted!");
             }}
         />
+    <Footer></Footer>
     </div>
   )
 }
