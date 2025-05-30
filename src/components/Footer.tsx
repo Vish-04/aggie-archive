@@ -8,6 +8,8 @@ export default function Footer() {
         <div className="flex justify-between items-center">
             <p className="text-black text[15px]">@ Spring Quarter 2025 | ECS 162</p>
             <p className="text-black text[15px]">Yujin Cho • Mileyna Soo • Ananya Ratakonda • Vibha Chandrasekar • Anna Cai • Vishwa Akkati </p>
+        
+        
         </div>
     </div>
   );
