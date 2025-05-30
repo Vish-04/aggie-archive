@@ -14,13 +14,13 @@ const Page = () => {
             <h1 className="text-[40px] font-bold">Course Name</h1>
             <button type="submit" className="bg-[#D9D9D9] text-black text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
         </div>
-        <div className="flex justify-end">
+        <div className="flex justify-end absolute top-24 right-20">
             <div className="bg-[#D9D9D9] max-w-fit p-1 rounded">
                 <button type="submit" className="bg-white text-black text-[18px] rounded px-4 py-2">Discussion</button>
                 <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2">Notes</button>
             </div>
         </div>
-        <div className="border rounded-lg mt-[2%] bg-[#EAEAEA] px-5 py-5">
+        <div className="border rounded-lg mt-16 bg-[#EAEAEA] px-5 py-5 ">
             <button className="bg-[#D9D9D9] text-black text-[16px] rounded px-4 py-2">+ Create thread</button>
             <div className="py-5 px-5 bg-white rounded-lg mt-5">
                 <Comment type="preview"/>

@@ -17,7 +17,7 @@ const DiscussionThread = () => {
             required
             placeholder="Add comment..."
             // comment form expands when user clicks into it
-            className="border rounded p-2 resize-none w-full mt-[10px] h-12 focus:h-48 transition-all duration-300"
+            className="border border-[#B0B0B0] rounded p-2 text-[16px] resize-none w-full mt-[10px] h-12 focus:h-48 transition-all duration-300"
             onChange={(e) => setText(e.target.value)}
           />
         {/* only display 'Post comment' if user types something inside comment form */}

@@ -24,7 +24,7 @@ export default function DiscussionForm({ onSubmit }) {
           <div className="flex gap-[17px] ml-auto mt-[15px]">
             <button type="button" className="bg-[#D9D9D9] text-black rounded px-4 py-2 text-[20px]">Cancel</button>
             <button type="submit" className="bg-[#D9D9D9] text-black rounded px-4 py-2 text-[20px]">
-              Submit
+              Create thread
             </button>
           </div>
         </form>
