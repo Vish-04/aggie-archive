@@ -1,4 +1,4 @@
-export default function footer() {
+export default function Footer() {
   return (
     <div className="px-16 py-10">
        <div className="flex justify-between items-center">
