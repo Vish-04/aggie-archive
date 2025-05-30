@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 // Auth0 Imports
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Footer from '@/components/Footer';
 
 
 
@@ -45,7 +46,9 @@ export default function Home() {
                 </button>
           </>
         )}
+        <Footer></Footer>
       </div>
+      
     );
   }
 }
