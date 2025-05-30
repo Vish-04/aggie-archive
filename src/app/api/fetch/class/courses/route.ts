@@ -17,8 +17,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await supabase
   .from('Class')
   .select('id, course_code, title')
-  .or(`course_code.ilike.%${search}%,title.ilike.%${search}%`)
-  .limit(10);
+  .or(`course_code.ilike.%${search}%,title.ilike.%${search}%`);
 
   if (error) {
     console.error('Supabase error:', error);

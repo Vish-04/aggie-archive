@@ -45,17 +45,20 @@ export default function SearchBar(){
             </div>
 
             {isOpen && (
-                <div className="absolute left-0 right-0 mt-2 bg-white border border-[#B0B0B0] rounded-md shadow-md z-10 p-4">
+                <div className="absolute left-24 border-t-0 right-10 bg-white border border-[#B0B0B0] rounded-md shadow-md z-10 p-6 max-h-[468px] overflow-y-auto">
                     {loading && <p className="text-gray-600">Loading...</p>}
-                    {!loading && classes.length === 0 && <p className="text-gray-600">No courses found.</p>}
+                    {!loading && classes.length === 0 && <p className="text-black">No courses found.</p>}
                     {!loading &&
                         classes.map((crs) => (
                         <div
                             key={crs.id}
-                            className="py-1 border-b last:border-none cursor-pointer hover:bg-gray-100"
+                            className="py-1 p-[30px] mb-4 rounded-b-[10px] border-[#B0B0B0] rounded-t-[10px] w-[1062px] h-[109px] last:border-none cursor-pointer bg-[#F5F6FB]"
                         >
-                            <p className="font-semibold">
-                            {crs.course_code} - {crs.title}
+                            <p className="mt-[20px] font-semibold text-[24px] font-[700]">
+                            {crs.course_code}
+                            </p>
+                            <p className="text-black text-[16px] font-[400] ">
+                            {crs.title}
                             </p>
                             <p className="text-sm text-gray-500">{crs.description}</p>
                         </div>
