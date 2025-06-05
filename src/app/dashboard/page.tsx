@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import ClassCard from '@/components/ClassCard';
 import SearchBar from '@/components/SearchBar';
-import Footer from '@/components/footer';
+import Footer from '@/components/Footer';
 import Header from '@/components/header';
 
 

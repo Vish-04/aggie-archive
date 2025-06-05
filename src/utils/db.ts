@@ -47,3 +47,54 @@ export const createPost = async (content: string, user_email: string, thread_id:
     const data = await res.json();
     return data;
 }
+
+export const uploadFile = async (
+    file: File,
+    fileName: string,
+    class_id: string,
+    user_email: string
+): Promise<Document> => {
+    // First, get the presigned URL
+    const presignedRes = await fetch(`/api/create/presigned-url`, {
+        method: 'POST',
+        body: JSON.stringify({
+            fileName,
+            fileType: file.type,
+            class_id,
+            user_email
+        })
+    });
+
+    if (!presignedRes.ok) {
+        throw new Error('Failed to get presigned URL');
+    }
+
+    const { presignedUrl, document } = await presignedRes.json();
+
+    // Upload the file to S3 using the presigned URL
+    const uploadRes = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+            'Content-Type': file.type
+        }
+    });
+
+    if (!uploadRes.ok) {
+        throw new Error('Failed to upload file to S3');
+    }
+
+    return document;
+}
+
+export const updateUser = async (email: string, updateData: Partial<User>): Promise<User> => {
+    const res = await fetch(`/api/update/user`, {
+        method: 'PUT',
+        body: JSON.stringify({ email, ...updateData })
+    });
+    if (!res.ok) {
+        throw new Error('Failed to update user');
+    }
+    const data = await res.json();
+    return data;
+}
