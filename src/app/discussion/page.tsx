@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 
 type Thread = {
     id: string;
-    user_email: string;
+    user_name: string;
     name: string;
     content: string;
     class_id: string;
@@ -17,6 +17,7 @@ type Thread = {
 // class_id should be a prop
 const Page = () => {
   const { user } = useUser();
+  console.log(user);
   const [loading, setLoading] = useState(true);
   const [showCreateThread, setShowCreateThread] = useState(false);
   const [activeThread, setActiveThread] = useState<Thread>(null);

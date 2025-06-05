@@ -1,10 +1,10 @@
 'use client'
 import React, { useState } from 'react'
-// import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 export default function DiscussionForm({ classId, onCancel, onCreateThread }) {
-  // const { user } = useUser();
+  const { user } = useUser();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
 
