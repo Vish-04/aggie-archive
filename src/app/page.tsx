@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 
 export default function Home() {
   const { user, isLoading } = useUser()
+
   
   if(isLoading) {
     return (
@@ -39,7 +40,7 @@ export default function Home() {
         ) : (
           <>
           <Header></Header>
-            <hr className='mx-6 border-t-1 border-buttonGray py-4'/>
+            {/* <hr className='mx-6 border-t-1 border-buttonGray py-4'/> */}
             <div className="w-300 h-[355px] bg-mainGray rounded-2xl my-4 mx-[44px] flex flex-col justify-end p-14 gap-4">
               <h1 className='text-black text-5xl font-bold '>An all-in-one hub for class </h1>
               <h1 className='text-black text-5xl font-bold '>discussions and notes!</h1>

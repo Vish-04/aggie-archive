@@ -13,6 +13,8 @@ export default {
         foreground: "var(--foreground)",
         buttonGray: '#D9D9D9',
         mainGray: '#EAEAEA',
+        purple: "#EDEFFA",
+        darkPurple: "#483183",
       },
       fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],
