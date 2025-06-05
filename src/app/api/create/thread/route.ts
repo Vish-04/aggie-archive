@@ -10,7 +10,7 @@ export const POST =  withApiAuthRequired(async function handler(
         return NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
     }
     
-    const { name, class_id } = await req.json();
+    const { name, class_id, content } = await req.json();
     
     if (!name || !class_id) {
         return NextResponse.json({ message: 'Invalid request parameters' }, { status: 400 });
@@ -19,9 +19,11 @@ export const POST =  withApiAuthRequired(async function handler(
     try {
     const { data: thread, error: threadError } = await supabase
       .from('Thread')
+      
       .insert({
         name: name,
         class_id: class_id,
+        content: content,
       })
       .select('*')
       .single();
@@ -37,3 +39,22 @@ export const POST =  withApiAuthRequired(async function handler(
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 });
+
+export async function GET(req: NextRequest){
+  const { searchParams } = new URL(req.url);
+  const class_id = searchParams.get('class_id');
+  let query = supabase.from('Thread')
+    .select('*')
+    .order('created_at', {ascending:false});
+  
+  if(class_id){
+    query = query.eq('class_id', class_id);
+  }
+
+  const { data, error } = await query;
+  if(error){
+    console.error('Error fetching threads:', error);
+    return NextResponse.json({message: "Error fetching threads"}, {status:500})
+  }
+  return NextResponse.json(data, { status: 200 });
+}

@@ -1,4 +1,5 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
+import lineClamp from '@tailwindcss/line-clamp';
 
 export default {
   content: [
@@ -17,7 +18,12 @@ export default {
        fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],
       },
+      fontFamily: {
+        dm: ['DM Sans', 'sans-serif'],
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    lineClamp
+  ],
 } satisfies Config;
