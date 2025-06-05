@@ -4,12 +4,11 @@ import { useState, useEffect, useRef } from "react";
 // initialize search bar props
 type SearchBarProps = {
     onToggleClass: (course: any) => void;
-    onToggleArchive: (course: any) => void;
 };
 
 
 // add toggling classes and archiving classes
-export default function SearchBar({ onToggleClass, onToggleArchive }: SearchBarProps){
+export default function SearchBar({ onToggleClass }: SearchBarProps){
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [classes, setClasses] = useState<any[]>([]);

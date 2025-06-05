@@ -51,7 +51,7 @@ const page = () => {
       <div className='pl-12'>
         <h1 className="text-3xl font-bold mb-2 mt-9">Hi, user</h1>
 
-        <SearchBar onToggleClass={handleClasses} onToggleArchive={handleArchive} />
+        <SearchBar onToggleClass={handleClasses} />
 
         <h2 className="text-2xl font-semibold mt-10 mb-6">My Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
