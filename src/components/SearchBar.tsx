@@ -34,6 +34,7 @@ export default function SearchBar({ onToggleClass, onToggleArchive }: SearchBarP
         })
     }
 
+    
     // logic for archiving classes
     const [archivedClasses, setArchivedClasses] = useState<Set<number>>(new Set());
 
@@ -67,6 +68,7 @@ export default function SearchBar({ onToggleClass, onToggleArchive }: SearchBarP
     }, []);
 
 
+    // search for classes using searchbar and connecting to database
     useEffect(() => {
         if (!query) {
             setClasses([]);
@@ -90,6 +92,7 @@ export default function SearchBar({ onToggleClass, onToggleArchive }: SearchBarP
     }, [query]);
 
 
+    // list of classes
     return(
         <div ref={wRef} className="w-full my-4">
             <div className="flex items-center border border-gray-300 rounded-[8px] px-3 py-2 bg-white" onClick={() => setIsOpen(true)}>

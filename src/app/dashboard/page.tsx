@@ -48,7 +48,7 @@ const page = () => {
         <SearchBar onToggleClass={handleClasses} onToggleArchive={handleArchive} />
 
         <h2 className="text-2xl font-semibold mt-10 mb-6">My Classes</h2>
-        <div className="flex flex-row gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {currClasses.map(course => (
             <ClassCard key={course.id} courseNumber={course.course_code} courseName={course.title} />
           ))}
