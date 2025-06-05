@@ -6,6 +6,7 @@ export type User ={
     geoip: geoIP;
     ip: string;
     classes: string[];
+    archived_classes: string[];
 }
 
 

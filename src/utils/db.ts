@@ -86,3 +86,15 @@ export const uploadFile = async (
 
     return document;
 }
+
+export const updateUser = async (email: string, updateData: Partial<User>): Promise<User> => {
+    const res = await fetch(`/api/update/user`, {
+        method: 'PUT',
+        body: JSON.stringify({ email, ...updateData })
+    });
+    if (!res.ok) {
+        throw new Error('Failed to update user');
+    }
+    const data = await res.json();
+    return data;
+}
