@@ -18,37 +18,20 @@ export default function SearchBar({ onToggleClass, onToggleArchive }: SearchBarP
 
     const wRef = useRef<HTMLDivElement>(null);
 
-    // logic for adding classes to dashboard
+    // logic for checking if class is added to 'My Classes'
     const [checkedClasses, setCheckedClasses] = useState<Set<number>>(new Set());
 
     const toggleCheck = (crs: number) => {
         setCheckedClasses(prev => {
             const modSet = new Set(prev);
             if (!modSet.has(crs)) {
+                console.log("course type: ", typeof(crs))
                 modSet.add(crs);
             }
             else {
                 modSet.delete(crs);
             }
-            return modSet;
-        })
-    }
-
-    
-    // logic for archiving classes
-    const [archivedClasses, setArchivedClasses] = useState<Set<number>>(new Set());
-
-    const toggleArchived = (crs: number) => {
-        setArchivedClasses(prev => {
-            const modSet = new Set(prev);
-            if (!modSet.has(crs)) {
-                console.log("archived class")
-                modSet.add(crs);
-            }
-            else {
-                console.log("unarchived class")
-                modSet.delete(crs);
-            }
+            console.log("checked classes: ", modSet);
             return modSet;
         })
     }

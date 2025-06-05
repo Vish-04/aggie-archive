@@ -23,7 +23,7 @@ const page = () => {
     })
   }
 
-  // set classes to archived
+  // add class to archived set
   const [archivedClasses, setArchivedClasses] = useState<any[]>([]);
 
   const handleArchive = (course: any) => {
@@ -38,6 +38,12 @@ const page = () => {
     })
   }
 
+  // check if class is archived
+  const checkArchived = (crsNum: string): boolean => {
+      return archivedClasses.some(crs => crs.course_code == crsNum);
+  }
+
+
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
       <Header></Header>
@@ -50,16 +56,15 @@ const page = () => {
         <h2 className="text-2xl font-semibold mt-10 mb-6">My Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {currClasses.map(course => (
-            <ClassCard key={course.id} courseNumber={course.course_code} courseName={course.title} />
+            <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
           ))}
         </div>
 
         <h2 className="text-2xl font-semibold mt-12 mb-6">Archived Classes</h2>
         <div className="flex flex-row gap-4 mb-10">
           {archivedClasses.map(course => (
-            <ClassCard key={course.id} courseNumber={course.course_code} courseName={course.title} />
+            <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
           ))}
-          <ClassCard courseNumber="ECS162" courseName="Web Programming" />
         </div>
       </div>
       <Footer></Footer>
