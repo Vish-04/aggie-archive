@@ -7,29 +7,40 @@ import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { Class, Thread } from '@/utils/types';
+import { fetchClass } from '@/utils/db';
+import { useParams, useRouter } from 'next/navigation';
 
 
-type Thread = {
-    id: string;
-    user_name: string;
-    name: string;
-    content: string;
-    class_id: string;
-};
 // class_id should be a prop
 const Page = () => {
   const { user } = useUser();
-  console.log(user);
+  const router = useRouter();
+
+//   console.log(user);
   const [loading, setLoading] = useState(true);
   const [showCreateThread, setShowCreateThread] = useState(false);
-  const [activeThread, setActiveThread] = useState<Thread>(null);
+  const [activeThread, setActiveThread] = useState<Thread | null>(null);
   const [showThreadsList, setShowThreadsList] = useState(true);
   const [openThread, setOpenThread] = useState(false);
   const [threads, setThreads] = useState<Thread[]>([]);
+  
+  const params = useParams();
+  const classId = params.classId?.[0] || 'No Class ID';
+  const [classData, setClassData] = useState<Class | null>(null);
+
+  useEffect(() => {
+    const getClass = async () => {
+      const newClassData = await fetchClass(classId);
+      setClassData(newClassData);
+    };
+
+    getClass();
+  }, [classId]);
 
   useEffect(() => {
         async function getThreads(){
-            try{const res = await fetch('/api/create/thread?class_id=000048ff-3e78-4c34-b9fe-cfd396105910');
+            try{const res = await fetch(`/api/create/thread?class_id=${classId}`);
             const data = await res.json();
             setThreads(data);
             } catch(error){
@@ -65,9 +76,9 @@ const Page = () => {
             <button type="submit" className="bg-[#8347E7] font-sans-400 text-white text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
         </div>
         <div className="flex justify-end absolute top-24 right-20">
-            <div className="bg-[#ECEEF8] text-[#483183] w-[238px] text-[18px] p-1 rounded-[8px]">
-                <Link href="/discussion" className="bg-white text-[18px] text-center w-[135px] rounded px-4 py-2 inline-block">Discussion</Link>
-                <Link href="/notes" className="text-[18px] rounded px-4 py-2 ml-2 text-center inline-block">Notes</Link>
+            <div className="bg-[#D9D9D9] max-w-fit p-1 rounded-[8px]">
+                <button type="submit" className="bg-white text-black text-[18px] rounded px-4 py-2" onClick={() => router.push(`/discussion/${classId}`)}>Discussion</button>
+                <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
             </div>
         </div>
         <div className={`rounded-lg mt-16  px-5 py-5 ${showThreadsList ? '' : 'hidden'}`}>
@@ -89,12 +100,12 @@ const Page = () => {
 
         {showCreateThread &&(
             <div className={`${!showCreateThread ? 'hidden' : ''}  mt-16 `}>
-                <DiscussionForm classId="000048ff-3e78-4c34-b9fe-cfd396105910" onCreateThread={openActiveThread} onCancel={handleCloseForm}/>
+                <DiscussionForm classId={classId} onCreateThread={openActiveThread} onCancel={handleCloseForm}/>
             </div>
         )}
         
         
-        {openThread && (
+        {openThread && activeThread && (
             <div className="left-[64px] bg-white mt-16">
             <DiscussionThread thread={activeThread}/>
             </div>

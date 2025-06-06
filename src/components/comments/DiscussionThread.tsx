@@ -4,26 +4,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Comment from '@/components/comments/Comment';
-
-// for thread
-type Thread = {
-  id: string;
-  user_email: string;
-  name: string;
-  content: string;
-  class_id: string;
-};
-
-// for comment
-type Post = {
-  id: string;
-  user_email: string;
-  content: string;
-  class_id: string;
-  parent_id?: string;
-  thread_id: string;
-  deleted: boolean;
-};
+import { createPost, fetchPosts } from '@/utils/db';
+import { Post, Thread } from '@/utils/types';
 
 type CommentProps = {
   thread: Thread;
@@ -36,11 +18,16 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
   const [focused, setFocused] = useState(false);
   const [comments, setComments] = useState<Post[]>([]);
 
+
   // fetch comments under a specific thread from database
   const getComments = useCallback(async () => {
-    const res = await fetch(`/api/create/post?thread_id=${thread.id}`);
-    const data = await res.json();
-    setComments(data);
+    try{
+      const res = await fetchPosts(thread.id);
+      console.log("COMMENTS",res);
+      setComments(res);
+    } catch(err){
+      console.error("Error:", err);
+    }
   }, [thread.id]);
 
     useEffect(() => {
@@ -49,27 +36,12 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
     }, [getComments]);
 
   
-  async function handleSubmit(e){
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     try{
-        const response = await fetch('/api/create/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                content: text,
-                class_id: thread.class_id,
-                user_email: user.email,
-                thread_id: thread.id,
-                deleted: false,
-                parent_id: null,
-            })
-        })
-        if(!response.ok){
-          const { message } = await response.json();
-          throw new Error(message || 'Error');
-        }
+        const response = await createPost(text, user?.email!, thread.id, thread.class_id);
+        console.log(response);
+        
         setText('');
         await getComments();
     } catch(err){
@@ -110,7 +82,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
       )}
       {/* display every top-level comment under thread */}
       {comments.map(comment => (
-        <Comment key={comment.id} type="reply" title="placeholder" user_email="sooperlayne" content={comment.content}/>
+        <Comment key={comment.id} type="reply" title="placeholder" user_email={comment.user_email} content={comment.content}/>
       ))}
     </div>
   )
