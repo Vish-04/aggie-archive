@@ -7,7 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 export default function Header() {
     const { user, isLoading } = useUser();
     const [logout, setLogout] = useState(false);
-  const logoutRef = useRef<HTMLDivElement | null>(null);
+    const logoutRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
 
     useEffect(() => {
