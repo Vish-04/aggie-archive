@@ -8,7 +8,7 @@ import DiscussionThread from '@/components/comments/DiscussionThread';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { Class, Thread } from '@/utils/types';
-import { fetchClass } from '@/utils/db';
+import { fetchClass, fetchThreads } from '@/utils/db';
 import { useParams, useRouter } from 'next/navigation';
 
 
@@ -22,7 +22,7 @@ const Page = () => {
   const [showCreateThread, setShowCreateThread] = useState(false);
   const [activeThread, setActiveThread] = useState<Thread | null>(null);
   const [showThreadsList, setShowThreadsList] = useState(true);
-  const [openThread, setOpenThread] = useState(false);
+  const [openThread, setOpenThread] = useState<boolean>(false);
   const [threads, setThreads] = useState<Thread[]>([]);
   
   const params = useParams();
@@ -40,11 +40,12 @@ const Page = () => {
 
   useEffect(() => {
         async function getThreads(){
-            try{const res = await fetch(`/api/create/thread?class_id=${classId}`);
-            const data = await res.json();
 
-            console.log("THREADS",data);
-            setThreads(data);
+
+            try{const res = await fetchThreads(classId);
+
+            console.log("THREADS",res);
+            setThreads(res);
             } catch(error){
                 console.error("Error", error);
             } finally{
@@ -83,6 +84,15 @@ const Page = () => {
                 <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
             </div>
         </div>
+        {openThread && (
+                <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2" 
+                onClick={() => {
+                    setOpenThread(false)
+                    setShowThreadsList(true);
+                    setShowCreateThread(true);
+                    setActiveThread(null);
+                }}>Back to Discussion</button>
+        )}
         <div className={`rounded-lg mt-16  px-5 py-5 ${showThreadsList ? '' : 'hidden'}`}>
             <button type="button" onClick={handleOpenForm} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] px-6 py-2">+ Create thread</button>
             {/* temporary loading message */}
@@ -109,7 +119,7 @@ const Page = () => {
         
         {openThread && activeThread && (
             <div className="left-[64px] bg-white mt-16">
-            <DiscussionThread thread={activeThread}/>
+            <DiscussionThread thread={activeThread} setOpenThread={setOpenThread}/>
             </div>
         )}
 

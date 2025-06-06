@@ -9,9 +9,10 @@ import { Post, Thread } from '@/utils/types';
 
 type CommentProps = {
   thread: Thread;
+  setOpenThread: (openThread: boolean) => void;
 };
 
-const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
+const DiscussionThread: React.FC<CommentProps> = ({ thread, setOpenThread }) => {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
