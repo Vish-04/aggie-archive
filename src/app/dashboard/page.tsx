@@ -53,8 +53,8 @@ const page = () => {
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
       <Header></Header>
-      <hr className="border-gray-300 mb-4" />
-      <div className='pl-12'>
+      <hr className="border-[#CCF] mb-4" />
+      <div className="pl-12 pt-2">
         <h1 className="text-3xl font-bold mb-2 mt-9">Hi, user</h1>
 
         <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
@@ -67,7 +67,7 @@ const page = () => {
         </div>
 
         <h2 className="text-2xl font-semibold mt-12 mb-6">Archived Classes</h2>
-        <div className="flex flex-row gap-4 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {archivedClasses.map(course => (
             <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
           ))}

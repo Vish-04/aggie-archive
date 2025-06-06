@@ -83,7 +83,7 @@ export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
             </div>
 
             {isOpen && (
-                <div className="absolute left-24 border-t-0 right-12 bg-white border border-[#B0B0B0] rounded-md shadow-md z-10 p-6 max-h-[468px] overflow-y-auto">
+                <div className="absolute left-24 border-t-0 right-12 bg-white border border-[#B0B0B0] rounded-md shadow-md z-10 p-6 max-h-[468px] overflow-y-auto w-1152px">
                     {loading && <p className="text-gray-600">Loading...</p>}
                     {!loading && classes.length === 0 && <p className="text-black">No courses found.</p>}
                     {!loading &&
