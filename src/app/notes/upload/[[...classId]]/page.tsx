@@ -1,7 +1,6 @@
 'use client';
 
-import Footer from '@/components/Footer';
-import Header from '@/components/DummyHeader';
+
 import Files from '@/components/Files';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -25,7 +24,6 @@ export default function Upload(){
   }, [classId]);
     return(
         <div>   
-            <Header></Header>
             <div className="flex justify-between items-center px-16 py-10">
                 <div className="flex items-center gap-8">
                     <h1 className='font-bold text-[40px]'>{classData?.title}</h1>
@@ -68,7 +66,6 @@ export default function Upload(){
 
             </div>
 
-            <Footer></Footer>
 
         </div>
         
