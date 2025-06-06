@@ -26,7 +26,6 @@ export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
     const wRef = useRef<HTMLDivElement>(null);
 
 
-
     // logic for exiting out of classes if you click outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -41,7 +40,7 @@ export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
     }, []);
 
 
-    // search for classes using searchbar and connecting to database
+    // search for classes using searchbar and by connecting to database
     useEffect(() => {
         if (!query) {
             setClasses([]);
