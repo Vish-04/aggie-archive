@@ -10,7 +10,7 @@ export default function Header() {
 
     useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (logoutRef.current && !logoutRef.current.contains(e.target as Node)) {
+      if (logoutRef.current && !logoutRef.current.contains(e.target)) {
         setLogout(false);
       }
     }
