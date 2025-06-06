@@ -32,7 +32,7 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
                     <img className={`${isPreview ? 'w-[45px] h-[45px]' : 'w-[50px] h-[50px]'} `} src="/user.svg" alt="user icon"/> 
                 </div>
                 
-                <p className={`${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>sooperlayne</p>
+                <p className={`${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>{user_email}</p>
             </div>
 
             <h1 className={`font-semibold ${isPreview ? 'text-[24px]' : isReply ? 'hidden' : 'text-[32px]'} `}>{title}</h1>

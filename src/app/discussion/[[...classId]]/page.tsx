@@ -42,6 +42,8 @@ const Page = () => {
         async function getThreads(){
             try{const res = await fetch(`/api/create/thread?class_id=${classId}`);
             const data = await res.json();
+
+            console.log("THREADS",data);
             setThreads(data);
             } catch(error){
                 console.error("Error", error);
@@ -72,7 +74,7 @@ const Page = () => {
   return (
     <div className="p-[5%]">
         <div className="flex gap-[28px] items-center">
-            <h1 className="text-[40px] font-bold">ECS 162</h1>
+            <h1 className="text-[40px] font-bold">{classData?.course_code}</h1>
             <button type="submit" className="bg-[#8347E7] font-sans-400 text-white text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
         </div>
         <div className="flex justify-end absolute top-24 right-20">
@@ -89,7 +91,7 @@ const Page = () => {
             )}
             {threads.map(thread => (
                 <div key={thread.id} onClick={() => openActiveThread(thread)} className="role=button px-8 py-5 bg-white border border-[#CCCCFF] rounded-[10px] mt-5 cursor-pointer">
-                    <Comment type="preview" user_email="sooperlayne" title={thread.name} content={thread.content}/>
+                    <Comment type="preview" user_email={thread.user_email} title={thread.name} content={thread.content}/>
                 </div>
             ))}
             
