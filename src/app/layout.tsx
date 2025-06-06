@@ -8,14 +8,6 @@ const dmSans = DM_Sans({
   weight: ['400', '700'], 
 });
 
-
-// Import DM Sans with the weights you want (400, 600, 700)
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-dm-sans', // optional CSS variable
-})
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
 
