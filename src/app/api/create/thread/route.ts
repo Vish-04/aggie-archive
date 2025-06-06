@@ -10,7 +10,7 @@ export const POST =  withApiAuthRequired(async function handler(
         return NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
     }
     
-    const { name, class_id, content } = await req.json();
+    const { name, class_id, content, user_email } = await req.json();
     
     if (!name || !class_id) {
         return NextResponse.json({ message: 'Invalid request parameters' }, { status: 400 });
@@ -24,6 +24,7 @@ export const POST =  withApiAuthRequired(async function handler(
         name: name,
         class_id: class_id,
         content: content,
+        user_email: user_email,
       })
       .select('*')
       .single();

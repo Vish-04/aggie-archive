@@ -1,38 +1,32 @@
 'use client'
 import React, { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { Thread } from '@/utils/types';
+import { createThread } from '@/utils/db';
+
+  type DiscussionFormProps = {
+  classId: string;
+  onCancel: () => void;
+  onCreateThread: (thread: Thread) => void;
+}
 
 
-export default function DiscussionForm({ classId, onCancel, onCreateThread }) {
+export default function DiscussionForm({ classId, onCancel, onCreateThread }: DiscussionFormProps) {
   const { user } = useUser();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
 
 
-    async function handleSubmit(e) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       try{
-        const response = await fetch('/api/create/thread', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: title,
-            class_id: classId,
-            content: text,
-          }),
-        });
+        const response = await createThread(title, classId, text, user?.email!);
   
-        if(!response.ok){
-          const { message } = await response.json();
-          throw new Error(message || 'Error');
-        }
+        
         setTitle('');
         setText('');
         
-        const newThread = await response.json();
-        onCreateThread(newThread);
+        onCreateThread(response);
 
         
       } catch (err) {
