@@ -9,9 +9,10 @@ import { Post, Thread } from '@/utils/types';
 
 type CommentProps = {
   thread: Thread;
+  setOpenThread: (openThread: boolean) => void;
 };
 
-const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
+const DiscussionThread: React.FC<CommentProps> = ({ thread, setOpenThread }) => {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
@@ -49,7 +50,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
     }
 } 
   return (
-    <div className="bg-white font-dm px-10 py-10 border rounded-lg border-[#B0B0B0] flex flex-col gap-[20px]">
+    <div className="bg-white border border-[#CCCCFF] font-dm px-10 py-10 rounded-lg  flex flex-col gap-[20px]">
 
       <Comment user_email={thread.user_email} title={thread.name} content={thread.content}/>
 
@@ -62,9 +63,9 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
             onChange={(e) => setText(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            className={`border border-[#B0B0B0] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
+            className={`border border-[#B0B0B0]  placeholder-[#A0A0A0] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
             ${focused || text ? 'h-48' : 'h-12'} overflow-hidden`}
-            style={{ minHeight: 48 }}
+            style={{ minHeight: 48, border: '1px solid #CCCCFF' }}
           />
         {/* only display 'Post comment' if user types something inside comment form */}
         {text.trim() !== '' && (

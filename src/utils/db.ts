@@ -20,7 +20,7 @@ export const fetchDocuments = async (class_id: string): Promise<Document[]> => {
 
 
 export const fetchThreads = async (class_id: string): Promise<Thread[]> => {
-    const res = await fetch(`/api/fetch/class/threads`, {
+    const res = await fetch(`/api/fetch/class/thread`, {
         method: 'POST', 
         body: JSON.stringify({class_id})
     });
