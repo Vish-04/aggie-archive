@@ -23,6 +23,10 @@ type geoIP= {
 export type Class = {
     id: string;
     created_at: string;
+    course_code: string;
+    units: string;
+    title: string;
+    description: string;
 }
 
 export type Document = {
@@ -49,4 +53,6 @@ export type Thread = {
     created_at: string;
     class_id: string;
     name: string;
+    content: string;
+    user_email: string;
 }

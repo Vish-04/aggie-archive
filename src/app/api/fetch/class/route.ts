@@ -17,18 +17,18 @@ export const POST =  withApiAuthRequired(async function handler(
     }
     
     try {
-    const { data: documents, error: documentError } = await supabase
-      .from('Document')
+    const { data: classData, error: classError } = await supabase
+      .from('Class')
       .select('*')
-      .eq('class_id', class_id)
-      .is('deleted', false)
+      .eq('id', class_id)
+      .single()
 
-    if (documentError) {
-      console.error('Error fetching documents:', documentError);
-      return NextResponse.json({ message: 'Documents not found' }, { status: 404 });
+    if (classError) {
+      console.error('Error fetching class:', classError);
+      return NextResponse.json({ message: 'Class not found' }, { status: 404 });
     }
 
-    return NextResponse.json(documents, { status: 200 });
+    return NextResponse.json(classData, { status: 200 });
   } catch (error) {
     console.error('Error querying Supabase:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });

@@ -1,4 +1,4 @@
-import { Document, Post, Thread, User } from "./types";
+import { Class, Document, Post, Thread, User } from "./types";
 
 export const fetchUser =  async (email:string): Promise<User> => {
     const res = await fetch(`/api/fetch/user`, {
@@ -9,7 +9,7 @@ export const fetchUser =  async (email:string): Promise<User> => {
     return data;
 }
 
-export const fetchDocuments = async (class_id: string): Promise<Document[]> => {
+export const fetchDocuments = async (class_id: string): Promise<Document[] | {message: string}> => {
     const res = await fetch(`/api/fetch/class/documents`, {
         method: 'POST', 
         body: JSON.stringify({class_id})
@@ -19,8 +19,8 @@ export const fetchDocuments = async (class_id: string): Promise<Document[]> => {
 }
 
 
-export const fetchThreads = async (class_id: string): Promise<Thread[]> => {
-    const res = await fetch(`/api/fetch/class/threads`, {
+export const fetchThreads = async (class_id: string): Promise<Thread[] | {message: string}> => {
+    const res = await fetch(`/api/fetch/class/thread`, {
         method: 'POST', 
         body: JSON.stringify({class_id})
     });
@@ -38,8 +38,18 @@ export const fetchPosts = async (thread_id: string): Promise<Post[]> => {
     return data;
 }
 
+export const createThread = async (name: string, class_id: string, content: string, user_email: string): Promise<Thread> => {
+    const res = await fetch(`/api/create/thread`, {
+        method: 'POST', 
+        body: JSON.stringify({name, class_id, content, user_email})
+    });
+    const data = await res.json();
+    return data;
+}
+
 
 export const createPost = async (content: string, user_email: string, thread_id: string, class_id: string): Promise<Post> => {
+    console.log(content, user_email, thread_id, class_id);
     const res = await fetch(`/api/create/post`, {
         method: 'POST', 
         body: JSON.stringify({content, user_email, thread_id, class_id})
@@ -55,7 +65,7 @@ export const uploadFile = async (
     user_email: string
 ): Promise<Document> => {
     // First, get the presigned URL
-    const presignedRes = await fetch(`/api/create/presigned-url`, {
+    const presignedRes = await fetch(`/api/create/document`, {
         method: 'POST',
         body: JSON.stringify({
             fileName,
@@ -66,12 +76,28 @@ export const uploadFile = async (
     });
 
     if (!presignedRes.ok) {
+        console.error('Presigned URL request failed:', {
+            status: presignedRes.status,
+            statusText: presignedRes.statusText
+        });
         throw new Error('Failed to get presigned URL');
     }
 
+    console.log('Successfully got presigned URL response');
     const { presignedUrl, document } = await presignedRes.json();
+    console.log('Parsed presigned URL data:', {
+        presignedUrl,
+        documentId: document.id, // Assuming document has an id
+        documentMetadata: document
+    });
 
     // Upload the file to S3 using the presigned URL
+    console.log('Starting S3 upload with file:', {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type
+    });
+
     const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
         body: file,
@@ -81,9 +107,16 @@ export const uploadFile = async (
     });
 
     if (!uploadRes.ok) {
+        console.error('S3 upload failed:', {
+            status: uploadRes.status,
+            statusText: uploadRes.statusText,
+            responseHeaders: Object.fromEntries(uploadRes.headers.entries())
+        });
         throw new Error('Failed to upload file to S3');
     }
 
+    console.log('Successfully uploaded file to S3');
+    console.log('Returning document metadata:', document);
     return document;
 }
 
@@ -95,6 +128,15 @@ export const updateUser = async (email: string, updateData: Partial<User>): Prom
     if (!res.ok) {
         throw new Error('Failed to update user');
     }
+    const data = await res.json();
+    return data;
+}
+
+export const fetchClass = async (class_id: string): Promise<Class | {message: string}> => {
+    const res = await fetch(`/api/fetch/class`, {
+        method: 'POST',
+        body: JSON.stringify({ class_id })
+    });
     const data = await res.json();
     return data;
 }

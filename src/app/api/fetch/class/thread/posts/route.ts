@@ -21,6 +21,7 @@ export const POST =  withApiAuthRequired(async function handler(
       .from('Post')
       .select('*')
       .eq('thread_id', thread_id)
+      .is('deleted', false)
 
     if (postError) {
       console.error('Error fetching posts:', postError);
