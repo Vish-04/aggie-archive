@@ -21,6 +21,7 @@ export const POST =  withApiAuthRequired(async function handler(
       .from('Thread')
       .select('*')
       .eq('class_id', class_id)
+      .is('deleted', false)
 
     if (threadError) {
       console.error('Error fetching threads:', threadError);
