@@ -1,14 +1,22 @@
 'use client';
 import { useState, useEffect, useRef } from "react";
 
+/* initialize course type */
+type Course = {
+    id: string;
+    course_code: string;
+    title: string;
+};
+
 // initialize search bar props
 type SearchBarProps = {
     onToggleClass: (course: any) => void;
+    isCurrent: (courseNum: string) => boolean;
 };
 
 
 // add toggling classes and archiving classes
-export default function SearchBar({ onToggleClass }: SearchBarProps){
+export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [classes, setClasses] = useState<any[]>([]);
@@ -17,23 +25,6 @@ export default function SearchBar({ onToggleClass }: SearchBarProps){
 
     const wRef = useRef<HTMLDivElement>(null);
 
-    // logic for checking if class is added to 'My Classes'
-    const [checkedClasses, setCheckedClasses] = useState<Set<number>>(new Set());
-
-    const toggleCheck = (crs: number) => {
-        setCheckedClasses(prev => {
-            const modSet = new Set(prev);
-            if (!modSet.has(crs)) {
-                console.log("course type: ", typeof(crs))
-                modSet.add(crs);
-            }
-            else {
-                modSet.delete(crs);
-            }
-            console.log("checked classes: ", modSet);
-            return modSet;
-        })
-    }
 
 
     // logic for exiting out of classes if you click outside
@@ -77,12 +68,15 @@ export default function SearchBar({ onToggleClass }: SearchBarProps){
     // list of classes
     return(
         <div ref={wRef} className="w-full my-4">
-            <div className="flex items-center border border-gray-300 rounded-[8px] px-3 py-2 bg-white" onClick={() => setIsOpen(true)}>
-                <img src="/search.png" alt="Search Icon" className="w-5 mr-3"></img>
+            <div className="flex items-center border border-[#AB97CC] rounded-[8px] px-3 py-2 bg-white" onClick={() => setIsOpen(true)}>
+                {/*<img src="/search.png" alt="Search Icon" className="w-5 mr-3"></img>*/}
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M29.4 31.5L19.95 22.05C19.2 22.65 18.3375 23.125 17.3625 23.475C16.3875 23.825 15.35 24 14.25 24C11.525 24 9.219 23.056 7.332 21.168C5.445 19.28 4.501 16.974 4.5 14.25C4.499 11.526 5.443 9.22 7.332 7.332C9.221 5.444 11.527 4.5 14.25 4.5C16.973 4.5 19.2795 5.444 21.1695 7.332C23.0595 9.22 24.003 11.526 24 14.25C24 15.35 23.825 16.3875 23.475 17.3625C23.125 18.3375 22.65 19.2 22.05 19.95L31.5 29.4L29.4 31.5ZM14.25 21C16.125 21 17.719 20.344 19.032 19.032C20.345 17.72 21.001 16.126 21 14.25C20.999 12.374 20.343 10.7805 19.032 9.4695C17.721 8.1585 16.127 7.502 14.25 7.5C12.373 7.498 10.7795 8.1545 9.4695 9.4695C8.1595 10.7845 7.503 12.378 7.5 14.25C7.497 16.122 8.1535 17.716 9.4695 19.032C10.7855 20.348 12.379 21.004 14.25 21Z" fill="#483183"/>
+                </svg>
                 <input
                     type="text"
                     placeholder="Search for classes..."
-                    className="flex-grow outline-none bg-transparent text-black placeholder-gray-500"
+                    className="flex-grow outline-none bg-transparent text-black placeholder-[#AB97CC] px-4"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => setIsOpen(true)}
@@ -102,17 +96,18 @@ export default function SearchBar({ onToggleClass }: SearchBarProps){
                                 {crs.course_code}
                                 </p>
                                 {/* checkmark button */}
-                                <button className="cursor-pointer" onClick={() => {toggleCheck(crs.id); onToggleClass(crs);}}>
-                                    {checkedClasses.has(crs.id) ? (
+                                <button className="cursor-pointer" onClick={() => {onToggleClass(crs)}}>
+                                    {isCurrent(crs.course_code) ? (
                                     <div className="flex items-center gap-2">
-                                        <span className="mt-8">Added to <strong>My Classes</strong></span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" className="mt-8">
-                                            <path fillRule="evenodd" clipRule="evenodd" d="M7.5 4.5C6.70435 4.5 5.94129 4.81607 5.37868 5.37868C4.81607 5.94129 4.5 6.70435 4.5 7.5V28.5C4.5 29.2956 4.81607 30.0587 5.37868 30.6213C5.94129 31.1839 6.70435 31.5 7.5 31.5H28.5C29.2956 31.5 30.0587 31.1839 30.6213 30.6213C31.1839 30.0587 31.5 29.2956 31.5 28.5V7.5C31.5 6.70435 31.1839 5.94129 30.6213 5.37868C30.0587 4.81607 29.2956 4.5 28.5 4.5H7.5ZM7.5 7.5H28.5V28.5H7.5V7.5ZM25.425 14.6925C25.5683 14.5541 25.6825 14.3886 25.7612 14.2056C25.8398 14.0226 25.8811 13.8258 25.8829 13.6266C25.8846 13.4274 25.8467 13.2299 25.7712 13.0456C25.6958 12.8612 25.5844 12.6937 25.4436 12.5529C25.3028 12.4121 25.1353 12.3007 24.9509 12.2253C24.7666 12.1498 24.5691 12.1119 24.3699 12.1136C24.1707 12.1154 23.9739 12.1567 23.7909 12.2353C23.6079 12.314 23.4424 12.4282 23.304 12.5715L15.879 19.9965L12.6975 16.815C12.5582 16.6756 12.3929 16.5651 12.2109 16.4896C12.0289 16.4141 11.8338 16.3753 11.6368 16.3752C11.2389 16.3751 10.8572 16.533 10.5757 16.8143C10.2943 17.0955 10.1361 17.4771 10.1359 17.875C10.1358 18.2729 10.2937 18.6545 10.575 18.936L14.712 23.073C14.8652 23.2263 15.0472 23.3479 15.2474 23.4309C15.4476 23.5138 15.6623 23.5565 15.879 23.5565C16.0957 23.5565 16.3104 23.5138 16.5106 23.4309C16.7108 23.3479 16.8928 23.2263 17.046 23.073L25.425 14.6925Z" fill="black"/>
+                                        <span className="mt-10">Added to <span className="text-[#8347E7] font-medium">My Classes</span></span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" className="mt-10">
+                                            <path fillRule="evenodd" clipRule="evenodd" d="M12.5939 23.2579L12.5819 23.2599L12.5109 23.2949L12.4909 23.2989L12.4769 23.2949L12.4059 23.2589C12.3953 23.2563 12.3873 23.2583 12.3819 23.2649L12.3779 23.2749L12.3609 23.7029L12.3659 23.7229L12.3759 23.7359L12.4799 23.8099L12.4949 23.8139L12.5069 23.8099L12.6109 23.7359L12.6229 23.7199L12.6269 23.7029L12.6099 23.2759C12.6073 23.2653 12.6019 23.2593 12.5939 23.2579ZM12.8579 23.1449L12.8439 23.1469L12.6599 23.2399L12.6499 23.2499L12.6469 23.2609L12.6649 23.6909L12.6699 23.7029L12.6779 23.7109L12.8789 23.8029C12.8916 23.8063 12.9013 23.8036 12.9079 23.7949L12.9119 23.7809L12.8779 23.1669C12.8746 23.1543 12.8679 23.1469 12.8579 23.1449ZM12.1429 23.1469C12.1385 23.1443 12.1333 23.1434 12.1282 23.1445C12.1232 23.1456 12.1188 23.1487 12.1159 23.1529L12.1099 23.1669L12.0759 23.7809C12.0766 23.7929 12.0823 23.8009 12.0929 23.8049L12.1079 23.8029L12.3089 23.7099L12.3189 23.7019L12.3219 23.6909L12.3399 23.2609L12.3369 23.2489L12.3269 23.2389L12.1429 23.1469Z" fill="#483183"/>
+                                            <path fillRule="evenodd" clipRule="evenodd" d="M5 3C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H5ZM5 5H19V19H5V5ZM16.95 9.795C17.0455 9.70275 17.1217 9.59241 17.1741 9.4704C17.2265 9.3484 17.2541 9.21718 17.2553 9.0844C17.2564 8.95162 17.2311 8.81994 17.1808 8.69705C17.1305 8.57415 17.0563 8.4625 16.9624 8.3686C16.8685 8.27471 16.7568 8.20046 16.634 8.15018C16.5111 8.0999 16.3794 8.0746 16.2466 8.07575C16.1138 8.0769 15.9826 8.10449 15.8606 8.1569C15.7386 8.20931 15.6282 8.28549 15.536 8.381L10.586 13.331L8.465 11.21C8.37216 11.1171 8.26192 11.0434 8.14059 10.9931C8.01926 10.9428 7.8892 10.9168 7.75785 10.9168C7.49258 10.9167 7.23814 11.022 7.0505 11.2095C6.86286 11.397 6.75739 11.6514 6.7573 11.9166C6.7572 12.1819 6.86249 12.4364 7.05 12.624L9.808 15.382C9.91015 15.4842 10.0314 15.5653 10.1649 15.6206C10.2984 15.6759 10.4415 15.7044 10.586 15.7044C10.7305 15.7044 10.8736 15.6759 11.0071 15.6206C11.1406 15.5653 11.2618 15.4842 11.364 15.382L16.95 9.795Z" fill="#483183"/>
                                         </svg>
                                     </div>
                                     ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" className="mt-8" >
-                                        <path d="M29.25 30.9375H6.75C6.30245 30.9375 5.87322 30.7597 5.55676 30.4432C5.24029 30.1268 5.0625 29.6976 5.0625 29.25V6.75C5.0625 5.81625 5.81625 5.0625 6.75 5.0625H29.25C30.1815 5.0625 30.9375 5.81625 30.9375 6.75V29.25C30.9375 29.6976 30.7597 30.1268 30.4432 30.4432C30.1268 30.7597 29.6976 30.9375 29.25 30.9375ZM8.4375 27.5625H27.5625V8.4375H8.4375V27.5625Z" fill="black"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" className="mt-10">
+                                        <path d="M19.5 20.625H4.5C4.20163 20.625 3.91548 20.5065 3.7045 20.2955C3.49353 20.0845 3.375 19.7984 3.375 19.5V4.5C3.375 3.8775 3.8775 3.375 4.5 3.375H19.5C20.121 3.375 20.625 3.8775 20.625 4.5V19.5C20.625 19.7984 20.5065 20.0845 20.2955 20.2955C20.0845 20.5065 19.7984 20.625 19.5 20.625ZM5.625 18.375H18.375V5.625H5.625V18.375Z" fill="#483183"/>
                                     </svg>
                                     )}
                                 </button>

@@ -23,6 +23,11 @@ const page = () => {
     })
   }
 
+  // check if class is current
+  const checkCurrent = (crsNum: string): boolean => {
+    return currClasses.some(crs => crs.course_code == crsNum);
+  }
+
   // add class to archived set
   const [archivedClasses, setArchivedClasses] = useState<any[]>([]);
 
@@ -44,6 +49,7 @@ const page = () => {
   }
 
 
+
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
       <Header></Header>
@@ -51,7 +57,7 @@ const page = () => {
       <div className='pl-12'>
         <h1 className="text-3xl font-bold mb-2 mt-9">Hi, user</h1>
 
-        <SearchBar onToggleClass={handleClasses} />
+        <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
 
         <h2 className="text-2xl font-semibold mt-10 mb-6">My Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
