@@ -2,11 +2,13 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { LogOut } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function Header() {
     const { user, isLoading } = useUser();
     const [logout, setLogout] = useState(false);
   const logoutRef = useRef<HTMLDivElement | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -23,7 +25,9 @@ export default function Header() {
       <div>
          <div className="flex justify-between items-center py-3 px-10">
       {/* <h1 className="text-black text-left text-2xl font-bold">noteorbit</h1> */}
-            <img src="/logo.svg" alt="" />
+            <button onClick={() => router.push(`/dashboard`)}>
+               <img src="/logo.svg" alt="" />
+            </button>
 
       { !isLoading && !user && 
         
