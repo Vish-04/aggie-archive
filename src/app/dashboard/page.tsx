@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import ClassCard from '@/components/ClassCard';
 import SearchBar from '@/components/SearchBar';
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import Header from '@/components/header';
 
 
 const page = () => {
@@ -52,8 +52,6 @@ const page = () => {
 
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
-      <Header></Header>
-      <hr className="border-[#CCF] mb-4" />
       <div className="pl-12 pt-2">
         <h1 className="text-3xl font-bold mb-2 mt-9">Hi, user</h1>
 
@@ -73,7 +71,6 @@ const page = () => {
           ))}
         </div>
       </div>
-      <Footer></Footer>
     </div>
   )
 }
