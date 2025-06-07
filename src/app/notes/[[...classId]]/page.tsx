@@ -25,7 +25,7 @@ export default function Notes(){
   }, [classId]);
   
     return(
-        <div>   
+        <div className="font-[sans]">   
             <Header></Header>
             <div className="flex justify-between items-center px-16 py-10">
                 <div className="flex items-center gap-8">

@@ -6,7 +6,7 @@ import Comment from '@/components/comments/Comment';
 import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
+import Header from '@/components/DummyHeader';
 import { Class, Thread } from '@/utils/types';
 import { fetchClass, fetchThreads } from '@/utils/db';
 import { useParams, useRouter } from 'next/navigation';
@@ -73,19 +73,26 @@ const Page = () => {
   }
 
   return (
-    <div className="p-[5%]">
-        <div className="flex gap-[28px] items-center">
-            <h1 className="text-[40px] font-bold">{classData?.course_code}</h1>
-            <button type="submit" className="bg-[#8347E7] font-sans-400 text-white text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
+    
+    <div>
+      <Header></Header>
+      <div className="px-[69px]">
+        <div className="absolute flex gap-[28px] top-[140px] h-[52px] left-[69px] items-center">
+          {/* Course code (i.e., ECS162) */}
+            <h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
+          {/* Add to dashboard button */}
+            <button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+ Add to Dashboard</button>
         </div>
-        <div className="flex justify-end absolute top-24 right-20">
-            <div className="bg-[#D9D9D9] max-w-fit p-1 rounded-[8px]">
-                <button type="submit" className="bg-white text-black text-[18px] rounded px-4 py-2" onClick={() => router.push(`/discussion/${classId}`)}>Discussion</button>
-                <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
+        {/* "Discussion" and "Notes" toggle */}
+        <div className="flex justify-end absolute top-[140px] right-20">
+            <div className="bg-[#ECEEF8] text-[#483183] font-medium w-[238px] p-1 rounded-[8px]">
+                <button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2" onClick={() => router.push(`/discussion/${classId}`)}>Discussion</button>
+                <button type="submit" className="text-[18px] rounded h-[39px] px-5 py-2" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
             </div>
         </div>
         {openThread && (
-                <button type="submit" className="bg-[#D9D9D9] text-black text-[18px] rounded px-4 py-2" 
+                
+                <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] px-6 py-2" 
                 onClick={() => {
                     setOpenThread(false)
                     setShowThreadsList(true);
@@ -93,8 +100,8 @@ const Page = () => {
                     setActiveThread(null);
                 }}>Back to Discussion</button>
         )}
-        <div className={`rounded-lg mt-16  px-5 py-5 ${showThreadsList ? '' : 'hidden'}`}>
-            <button type="button" onClick={handleOpenForm} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] px-6 py-2">+ Create thread</button>
+        <div className={`rounded-lg mt-[135px] py-5 ${showThreadsList ? '' : 'hidden'}`}>
+            <button type="button" onClick={handleOpenForm} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] h-[36px] w-[154px]">+ Create thread</button>
             {/* temporary loading message */}
             {loading && (
                 <p className="py-4">Loading threads...</p>
@@ -122,9 +129,10 @@ const Page = () => {
             <DiscussionThread thread={activeThread} setOpenThread={setOpenThread}/>
             </div>
         )}
-
+    </div>
     <Footer></Footer>
     </div>
+    
   )
 }
 
