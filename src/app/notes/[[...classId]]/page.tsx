@@ -56,7 +56,6 @@ export default function Notes(){
             <div className="flex justify-between items-center px-16 py-10">
                 <div className="flex items-center gap-8">
                     <h1 className='font-bold text-[40px]'>{classData?.title}</h1>
-                    <button className="bg-[#D9D9D9] rounded-lg p-2">+ Add to Dashboard</button>
                 </div>
                 <div className="flex gap-2 bg-purple p-1 rounded-lg">
                     <button onClick={() => router.push(`/discussion/${classId}`)}

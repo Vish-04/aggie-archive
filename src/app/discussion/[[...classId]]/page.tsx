@@ -90,7 +90,6 @@ const Page = () => {
     <div className="p-[5%]">
         <div className="flex gap-[28px] items-center">
             <h1 className="text-[40px] font-bold">{classData?.course_code}</h1>
-            <button type="submit" className="bg-[#8347E7] font-sans-400 text-white text-[16px] h-[36px] rounded px-4 py-2">+ Add to Dashboard</button>
         </div>
         <div className="flex justify-end absolute top-24 right-20">
             <div className="bg-[#D9D9D9] max-w-fit p-1 rounded-[8px]">

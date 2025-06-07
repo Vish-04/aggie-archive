@@ -1,18 +1,12 @@
 'use client';
 import React from "react";
-
-/* initialize course type */
-type Course = {
-    id: string;
-    course_code: string;
-    title: string;
-};
+import { Class } from "@/utils/types";
 
 /* initialize props for classes */
 type ClassCardProps = {
-    course: Course;
-    onToggleClass: (course: any) => void;
-    onToggleArchive: (course: Course) => void;
+    course: Class;
+    onToggleClass: (course: Class) => void;
+    onToggleArchive: (course: Class) => void;
     isArchived: (courseNum: string) => boolean;
 };
 
@@ -20,7 +14,7 @@ type ClassCardProps = {
 export default function ClassCard({ course, onToggleClass, onToggleArchive, isArchived }: ClassCardProps){
 
     return(
-    <div className="bg-[#EDEFFA] rounded-[10px] shadow-md p-4 flex flex-col justify-end h-[282px] w-[292px]">
+    <div className="bg-[#EDEFFA] rounded-[10px] shadow-md p-4 flex flex-col justify-end h-[282px] w-[292px] cursor-pointer" onClick={() => {window.location.href = `/discussion/${course.id}`}}>
         <img src="/classCardPhoto.png" alt="placeholder image" className="mt-0 rounded-[10px] bg-white w-[262.5px] h-[175px]"></img>
         {/* class name + archive button */}
         <h2 className="relative text-[20px] font-bold text-black flex items-center gap-[146px]">

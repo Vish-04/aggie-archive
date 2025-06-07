@@ -1,4 +1,3 @@
-
 import "./globals.css";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { DM_Sans } from 'next/font/google';

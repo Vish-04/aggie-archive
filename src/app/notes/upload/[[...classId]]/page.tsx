@@ -44,7 +44,6 @@ export default function Upload(){
             <div className="flex justify-between items-center px-16 py-10">
                 <div className="flex items-center gap-8">
                     <h1 className='font-bold text-[40px]'>{classData?.title}</h1>
-                    <button className="bg-[#D9D9D9] rounded-lg p-2">+ Add to Dashboard</button>
                 </div>
                 <div className="flex gap-2 bg-purple p-1 rounded-lg">
                     {/* can change it here when we merge to main to the actual discussion page */}
@@ -116,6 +115,11 @@ export default function Upload(){
                                 if(selectedFile && user){
                                     const res = await uploadFile(selectedFile, title, classId, user?.email!);
                                     console.log(res);
+                                    if('message' in res){
+                                        alert(res.message);
+                                    } else {
+                                        router.push(`/notes/${classId}`);
+                                    }
                                 }
                             }}>Upload File</button>
                         </div>
