@@ -21,6 +21,7 @@ export const POST =  withApiAuthRequired(async function handler(
       .from('Document')
       .select('*')
       .eq('class_id', class_id)
+      .is('deleted', false)
 
     if (documentError) {
       console.error('Error fetching documents:', documentError);
