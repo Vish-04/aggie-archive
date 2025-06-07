@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await supabase
   .from('Class')
-  .select('id, course_code, title')
+  .select('*')
   .or(`course_code.ilike.%${search}%,title.ilike.%${search}%`);
 
   if (error) {

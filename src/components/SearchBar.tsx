@@ -1,16 +1,10 @@
 'use client';
 import { useState, useEffect, useRef } from "react";
-
-/* initialize course type */
-type Course = {
-    id: string;
-    course_code: string;
-    title: string;
-};
+import { Class } from "@/utils/types";
 
 // initialize search bar props
 type SearchBarProps = {
-    onToggleClass: (course: any) => void;
+    onToggleClass: (course: Class) => void;
     isCurrent: (courseNum: string) => boolean;
 };
 
@@ -88,7 +82,7 @@ export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
                     {!loading && classes.length === 0 && <p className="text-black">No courses found.</p>}
                     {!loading &&
                         classes.map((crs) => (
-                        <div key={crs.id} className="py-1 p-[30px] mb-4 rounded-b-[10px] border-[#B0B0B0] rounded-t-[10px] w-[1062px] h-[109px] last:border-none bg-[#F5F6FB]">
+                        <div key={crs.id} className="py-1 p-[30px] mb-4 rounded-b-[10px] border-[#B0B0B0] rounded-t-[10px] w-full h-[109px] last:border-none bg-[#F5F6FB]">
                             {/* class name + checkbox svg*/}
                             <div className="flex justify-between mb-1 items-center">
                                 <p className="mt-[15px] font-semibold text-[24px] font-bold">
@@ -114,7 +108,6 @@ export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
                             <p className="text-black text-[16px] font-[400] mt-[-14px] ">
                             {crs.title}
                             </p>
-                            <p className="text-sm text-gray-500">{crs.description} <span className="ml-4"></span></p>
                         </div>
                         ))}
                 </div>
