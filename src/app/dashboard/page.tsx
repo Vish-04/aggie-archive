@@ -1,15 +1,95 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClassCard from '@/components/ClassCard';
 import SearchBar from '@/components/SearchBar';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { fetchClass, fetchUser, updateUser } from '@/utils/db';
+import { Class, User } from '@/utils/types';
 
 
 const page = () => {
   // set current classes under 'My Classes'
   const [currClasses, setCurrClasses] = useState<any[]>([]);
+  const [archivedClasses, setArchivedClasses] = useState<any[]>([]);
+  const [userData, setUserData] = useState<User | null>(null);
+  
+  const { user } = useUser();
 
-  const handleClasses = (course: any) => {
+  useEffect(() => {
+    if (user) {
+      fetchUser(user.email!).then(async (user) => {
+        if('message' in user){
+          window.location.href = '/api/auth/login';
+        } else {
+          setUserData(user);
+          console.log("User data: ", user);
+          
+          // Create arrays to store the fetched class data
+          const fetchedClasses: Class[] = [];
+          const fetchedArchivedClasses: Class[] = [];
+          
+          // Fetch all current classes
+          await Promise.all(user.classes.map(async (crs: string) => {
+            const classData = await fetchClass(crs);
+            if (!('message' in classData)) {
+              fetchedClasses.push(classData);
+            }
+          }));
+          
+          // Fetch all archived classes
+          await Promise.all(user.archived_classes.map(async (crs: string) => {
+            const classData = await fetchClass(crs);
+            if (!('message' in classData)) {
+              fetchedArchivedClasses.push(classData);
+            }
+          }));
+          
+          // Update state with all fetched classes
+          setCurrClasses(fetchedClasses);
+          setArchivedClasses(fetchedArchivedClasses);
+        }
+      });
+    }
+  }, [user]);
+
+  useEffect(()=>{
+    console.log("Curr classes: ", currClasses);
+    if(userData && currClasses.length > 0){
+
+      const classIds = currClasses.reduce((acc, crs) => {
+        acc.push(crs.id);
+        return acc;
+      }, [] as string[]);
+      
+      console.log("Class IDs: ", classIds);
+      
+      const updateCurrentClasses = async (classIds: string[]) =>{
+        await updateUser(userData!.email, {classes: classIds});
+      }
+      
+      updateCurrentClasses(classIds);
+    }
+  }, [currClasses])
+
+  useEffect(()=>{
+    console.log("Archived classes: ", archivedClasses);
+    if(userData && archivedClasses.length > 0){
+      const classIds = archivedClasses.reduce((acc, crs) => {
+        acc.push(crs.id);
+        return acc;
+      }, [] as string[]);
+      
+      const updateArchivedClasses = async (classIds: string[]) =>{
+        await updateUser(userData!.email, {archived_classes: classIds});
+      }
+      
+      updateArchivedClasses(classIds);
+      console.log("Class IDs: ", classIds);
+    }
+  }, [archivedClasses])
+
+  const handleClasses = (course: Class) => {
     setCurrClasses(prev => {
       const inSet = prev.some((crs) => crs.id == course.id)
       if (inSet) {
@@ -25,9 +105,6 @@ const page = () => {
   const checkCurrent = (crsNum: string): boolean => {
     return currClasses.some(crs => crs.course_code == crsNum);
   }
-
-  // add class to archived set
-  const [archivedClasses, setArchivedClasses] = useState<any[]>([]);
 
   const handleArchive = (course: any) => {
     setArchivedClasses(prev => {
@@ -51,7 +128,7 @@ const page = () => {
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
       <div className="pl-12 pt-2">
-        <h1 className="text-3xl font-bold mb-2 mt-9">Hi, user</h1>
+        <h1 className="text-3xl font-bold mb-2 mt-9">Hi, {user?.name}</h1>
 
         <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
 

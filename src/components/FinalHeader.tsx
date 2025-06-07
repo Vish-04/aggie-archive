@@ -23,7 +23,7 @@ export default function Header() {
       <div>
          <div className="flex justify-between items-center py-3 px-10">
       {/* <h1 className="text-black text-left text-2xl font-bold">noteorbit</h1> */}
-            <img src="/logo.svg" alt="" />
+            <img src="/logo.svg" alt="" className='cursor-pointer' onClick={() => { window.location.href = '/dashboard'; }} />
 
       { !isLoading && !user && 
         
