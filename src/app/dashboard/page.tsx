@@ -8,10 +8,10 @@ import { fetchClass, fetchUser, updateUser } from '@/utils/db';
 import { Class, User } from '@/utils/types';
 
 
-const page = () => {
+export default function Dashboard(){
   // set current classes under 'My Classes'
-  const [currClasses, setCurrClasses] = useState<any[]>([]);
-  const [archivedClasses, setArchivedClasses] = useState<any[]>([]);
+  const [currClasses, setCurrClasses] = useState<Class[]>([]);
+  const [archivedClasses, setArchivedClasses] = useState<Class[]>([]);
   const [userData, setUserData] = useState<User | null>(null);
   
   const { user } = useUser();
@@ -149,5 +149,3 @@ const page = () => {
     </div>
   )
 }
-
-export default page

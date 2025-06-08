@@ -1,12 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react'
-import { useUser } from '@auth0/nextjs-auth0/client';
 import Comment from '@/components/comments/Comment';
 import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
-import Footer from '@/components/Footer';
-import Link from 'next/link';
 import { Class, Thread } from '@/utils/types';
 import { fetchClass, fetchThreads } from '@/utils/db';
 import { useParams, useRouter } from 'next/navigation';
@@ -15,7 +12,6 @@ import InvalidPage from '@/components/InvalidPage';
 
 // class_id should be a prop
 const Page = () => {
-  const { user } = useUser();
   const router = useRouter();
 
 //   console.log(user);
@@ -132,7 +128,7 @@ const Page = () => {
         
         {openThread && activeThread && (
             <div className="left-[64px] bg-white mt-16">
-            <DiscussionThread thread={activeThread} setOpenThread={setOpenThread}/>
+            <DiscussionThread thread={activeThread}/>
             </div>
         )}
 

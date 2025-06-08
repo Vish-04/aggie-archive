@@ -13,7 +13,7 @@ type SearchBarProps = {
 export default function SearchBar({ onToggleClass, isCurrent }: SearchBarProps){
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
-    const [classes, setClasses] = useState<any[]>([]);
+    const [classes, setClasses] = useState<Class[]>([]);
     const [loading, setLoading] = useState(false);
 
 

@@ -5,7 +5,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 type CommentProps = {
     //type classifications to make slight sizing and UI changes between the different views

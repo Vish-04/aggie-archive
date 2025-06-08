@@ -1,3 +1,4 @@
+//@ts-nocheck
 const { createClient } = require ("@supabase/supabase-js");
 
 

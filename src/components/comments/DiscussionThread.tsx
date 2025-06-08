@@ -9,10 +9,9 @@ import { Post, Thread } from '@/utils/types';
 
 type CommentProps = {
   thread: Thread;
-  setOpenThread: (openThread: boolean) => void;
 };
 
-const DiscussionThread: React.FC<CommentProps> = ({ thread, setOpenThread }) => {
+const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
@@ -39,8 +38,12 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread, setOpenThread }) => 
   
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
+    if (!user?.email) {
+      console.error('User email is not available');
+      return;
+    }
     try{
-        const response = await createPost(text, user?.email!, thread.id, thread.class_id);
+        const response = await createPost(text, user.email, thread.id, thread.class_id);
         console.log(response);
         
         setText('');
