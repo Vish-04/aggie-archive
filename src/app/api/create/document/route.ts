@@ -65,4 +65,4 @@ export const POST = withApiAuthRequired(async (
             { status: 500 }
         );
     }
-}); 
+}) as any;
