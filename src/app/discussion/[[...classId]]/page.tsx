@@ -1,12 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react'
-import { useUser } from '@auth0/nextjs-auth0/client';
 import Comment from '@/components/comments/Comment';
 import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
-import Footer from '@/components/Footer';
-import Header from '@/components/DummyHeader';
 import { Class, Thread } from '@/utils/types';
 import { fetchClass, fetchThreads } from '@/utils/db';
 import { useParams, useRouter } from 'next/navigation';
@@ -14,7 +11,6 @@ import { useParams, useRouter } from 'next/navigation';
 
 // class_id should be a prop
 const Page = () => {
-  const { user } = useUser();
   const router = useRouter();
 
 //   console.log(user);
@@ -75,7 +71,6 @@ const Page = () => {
   return (
     
     <div>
-      <Header></Header>
       <div className="px-[69px]">
         <div className="absolute flex gap-[28px] top-[140px] h-[52px] left-[69px] items-center">
           {/* Course code (i.e., ECS162) */}
@@ -130,7 +125,6 @@ const Page = () => {
             </div>
         )}
     </div>
-    <Footer></Footer>
     </div>
     
   )
