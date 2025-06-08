@@ -12,6 +12,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        buttonGray: '#D9D9D9',
+        mainGray: '#EAEAEA',
         purple: "#EDEFFA",
         darkPurple: "#483183",
       },

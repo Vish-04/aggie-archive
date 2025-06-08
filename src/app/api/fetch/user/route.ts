@@ -33,4 +33,4 @@ export const POST =  withApiAuthRequired(async function handler(
     console.error('Error querying Supabase:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
-});
+}) as (req: NextRequest) => Promise<NextResponse>;

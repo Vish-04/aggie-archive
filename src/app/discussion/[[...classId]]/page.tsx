@@ -7,6 +7,7 @@ import DiscussionThread from '@/components/comments/DiscussionThread';
 import { Class, Thread } from '@/utils/types';
 import { fetchClass, fetchThreads } from '@/utils/db';
 import { useParams, useRouter } from 'next/navigation';
+import InvalidPage from '@/components/InvalidPage';
 
 
 // class_id should be a prop
@@ -24,11 +25,16 @@ const Page = () => {
   const params = useParams();
   const classId = params.classId?.[0] || 'No Class ID';
   const [classData, setClassData] = useState<Class | null>(null);
+  const [invalidClass, setInvalidClass] = useState(false);
 
   useEffect(() => {
     const getClass = async () => {
       const newClassData = await fetchClass(classId);
-      setClassData(newClassData);
+      if('message' in newClassData){
+        setInvalidClass(true);
+      } else {
+        setClassData(newClassData);
+      }
     };
 
     getClass();
@@ -41,7 +47,11 @@ const Page = () => {
             try{const res = await fetchThreads(classId);
 
             console.log("THREADS",res);
-            setThreads(res);
+            if('message' in res){
+                setThreads([]);
+            } else {
+                setThreads(res);
+            }
             } catch(error){
                 console.error("Error", error);
             } finally{
@@ -66,6 +76,10 @@ const Page = () => {
     setShowCreateThread(false);
     setActiveThread(newThread);
     setOpenThread(true);
+  }
+
+  if (invalidClass) {
+    return <InvalidPage />;
   }
 
   return (
@@ -121,7 +135,7 @@ const Page = () => {
         
         {openThread && activeThread && (
             <div className="left-[64px] bg-white mt-16">
-            <DiscussionThread thread={activeThread} setOpenThread={setOpenThread}/>
+            <DiscussionThread thread={activeThread}/>
             </div>
         )}
     </div>

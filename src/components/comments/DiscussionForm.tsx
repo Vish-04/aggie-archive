@@ -19,8 +19,12 @@ export default function DiscussionForm({ classId, onCancel, onCreateThread }: Di
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-      try{
-        const response = await createThread(title, classId, text, user?.email!);
+      if (!user?.email) {
+        console.error('User email is not available');
+        return;
+      }
+      try {
+        const response = await createThread(title, classId, text, user.email);
   
         
         setTitle('');

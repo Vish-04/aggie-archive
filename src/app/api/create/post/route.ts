@@ -40,23 +40,4 @@ export const POST =  withApiAuthRequired(async function handler(
     console.error('Error querying Supabase:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
-});
-
-export async function GET(req: NextRequest){
-  const { searchParams } = new URL(req.url);
-  const thread_id = searchParams.get('thread_id');
-  let query = supabase.from('Post')
-    .select('*')
-    .order('created_at', {ascending:false});
-  
-  if(thread_id){
-    query = query.eq('thread_id', thread_id);
-  }
-
-  const { data, error } = await query;
-  if(error){
-    console.error('Error fetching threads:', error);
-    return NextResponse.json({message: "Error fetching threads"}, {status:500})
-  }
-  return NextResponse.json(data, { status: 200 });
-}
+}) as (req: NextRequest) => Promise<NextResponse>;

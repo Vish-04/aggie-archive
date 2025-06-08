@@ -3,21 +3,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { supabase } from '@/supabase/client';
+import { v4 as uuidv4 } from 'uuid';
 
 const s3Client = new S3Client({
-    region: process.env.AWS_REGION || 'us-west-2',
+    region: process.env.NEXT_AWS_REGION || 'us-west-1',
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        secretAccessKey: process.env.AWS_SECRET_KEY!
+        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY!,
+        secretAccessKey: process.env.NEXT_AWS_SECRET_KEY!
     }
 });
 
-export const POST = withApiAuthRequired(async function handler(
+export const POST = withApiAuthRequired(async (
     req: NextRequest
-) {
+) => {
     try {
         const { fileName, fileType, class_id, user_email } = await req.json();
-
+        
         if (!fileName || !fileType || !class_id || !user_email) {
             return NextResponse.json(
                 { error: 'fileName, fileType, class_id, and user_email are required' },
@@ -25,9 +26,11 @@ export const POST = withApiAuthRequired(async function handler(
             );
         }
 
+        const uniqueFileName = `${uuidv4()}-${fileName}`;
+
         const command = new PutObjectCommand({
-            Bucket: process.env.AWS_BUCKET_NAME!,
-            Key: `uploads/${fileName}`,
+            Bucket: process.env.NEXT_AWS_BUCKET_NAME!,
+            Key: `uploads/${uniqueFileName}`,
             ContentType: fileType,
         });
 
@@ -38,7 +41,7 @@ export const POST = withApiAuthRequired(async function handler(
             .from('Document')
             .insert({
                 name: fileName,
-                aws_url: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/uploads/${fileName}`,
+                aws_url: `https://${process.env.NEXT_AWS_BUCKET_NAME}.s3.${process.env.NEXT_AWS_REGION}.amazonaws.com/uploads/${uniqueFileName}`,
                 user_email: user_email,
                 class_id: class_id,
                 created_at: new Date().toISOString()
@@ -62,4 +65,4 @@ export const POST = withApiAuthRequired(async function handler(
             { status: 500 }
         );
     }
-}); 
+}) as (req: NextRequest) => Promise<NextResponse>;

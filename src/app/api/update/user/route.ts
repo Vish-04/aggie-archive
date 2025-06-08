@@ -1,7 +1,6 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/supabase/client';
-import { User } from '@/utils/types';
 
 export const PUT = withApiAuthRequired(async function handler(
   req: NextRequest
@@ -43,4 +42,4 @@ export const PUT = withApiAuthRequired(async function handler(
         console.error('Error updating user in Supabase:', error);
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
-});
+}) as (req: NextRequest) => Promise<NextResponse>;
