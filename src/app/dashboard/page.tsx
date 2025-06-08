@@ -106,7 +106,7 @@ export default function Dashboard(){
     return currClasses.some(crs => crs.course_code == crsNum);
   }
 
-  const handleArchive = (course: any) => {
+  const handleArchive = (course: Class) => {
     setArchivedClasses(prev => {
       const inArchived = prev.some((crs) => crs.id == course.id)
       if (inArchived) {

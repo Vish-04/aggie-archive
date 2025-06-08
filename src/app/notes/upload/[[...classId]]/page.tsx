@@ -1,8 +1,6 @@
 'use client';
 
 
-import Files from '@/components/Files';
-
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -21,7 +19,7 @@ export default function Upload(){
   const [title, setTitle] = useState<string>('');
   const [invalidClass, setInvalidClass] = useState(false);
 
-  const { isLoading, user } = useUser();
+  const { user } = useUser();
   useEffect(() => {
     const getClass = async () => {
       const newClassData = await fetchClass(classId);
@@ -112,8 +110,8 @@ export default function Upload(){
                             <button 
                             className='bg-gray-300 px-4 py-2 rounded-lg text-[20px]'
                             onClick={async () => {
-                                if(selectedFile && user){
-                                    const res = await uploadFile(selectedFile, title, classId, user?.email!);
+                                if(selectedFile && user && user.email){
+                                    const res = await uploadFile(selectedFile, title, classId, user.email);
                                     console.log(res);
                                     if('message' in res){
                                         alert(res.message);

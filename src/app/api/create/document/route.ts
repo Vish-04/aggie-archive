@@ -6,10 +6,10 @@ import { supabase } from '@/supabase/client';
 import { v4 as uuidv4 } from 'uuid';
 
 const s3Client = new S3Client({
-    region: process.env.AWS_REGION || 'us-west-1',
+    region: process.env.NEXT_AWS_REGION || 'us-west-1',
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        secretAccessKey: process.env.AWS_SECRET_KEY!
+        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY!,
+        secretAccessKey: process.env.NEXT_AWS_SECRET_KEY!
     }
 });
 
@@ -29,7 +29,7 @@ export const POST = withApiAuthRequired(async function handler(
         const uniqueFileName = `${uuidv4()}-${fileName}`;
 
         const command = new PutObjectCommand({
-            Bucket: process.env.AWS_BUCKET_NAME!,
+            Bucket: process.env.NEXT_AWS_BUCKET_NAME!,
             Key: `uploads/${uniqueFileName}`,
             ContentType: fileType,
         });
@@ -41,7 +41,7 @@ export const POST = withApiAuthRequired(async function handler(
             .from('Document')
             .insert({
                 name: fileName,
-                aws_url: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/uploads/${uniqueFileName}`,
+                aws_url: `https://${process.env.NEXT_AWS_BUCKET_NAME}.s3.${process.env.NEXT_AWS_REGION}.amazonaws.com/uploads/${uniqueFileName}`,
                 user_email: user_email,
                 class_id: class_id,
                 created_at: new Date().toISOString()

@@ -1,14 +1,9 @@
 'use client';
 
-// React Imports
-import { useState } from 'react';
 
 // Auth0 Imports
 import { useUser } from '@auth0/nextjs-auth0/client';
-import Footer from '@/components/Footer';
 import Blocks from '@/components/LandingPageBlocks'
-import Header from '@/components/Header';
-
 
 export default function Home() {
   const { user, isLoading } = useUser()
