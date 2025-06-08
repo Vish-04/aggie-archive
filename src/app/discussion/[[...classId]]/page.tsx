@@ -85,7 +85,7 @@ const Page = () => {
   return (
     
     <div>
-      <div className="px-[69px]">
+      <div className="pl-[69px] pr-[51px]">
         <div className="absolute flex gap-[28px] top-[140px] h-[52px] left-[69px] items-center">
           {/* Course code (i.e., ECS162) */}
             <h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
@@ -93,36 +93,37 @@ const Page = () => {
             <button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+ Add to Dashboard</button>
         </div>
         {/* "Discussion" and "Notes" toggle */}
-        <div className="flex justify-end absolute top-[140px] right-20">
+        <div className="flex justify-end absolute top-[140px] right-[60px]">
             <div className="bg-[#ECEEF8] text-[#483183] font-medium w-[238px] p-1 rounded-[8px]">
                 <button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2" onClick={() => router.push(`/discussion/${classId}`)}>Discussion</button>
                 <button type="submit" className="text-[18px] rounded h-[39px] px-5 py-2" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
             </div>
         </div>
+        {/* Display Back to Discussion button*/}
         {openThread && (
                 
-                <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] px-6 py-2" 
+                <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px]  h-[36px] px-6 py-1" 
                 onClick={() => {
                     setOpenThread(false)
                     setShowThreadsList(true);
-                    setShowCreateThread(true);
+                    setShowCreateThread(false);
                     setActiveThread(null);
                 }}>Back to Discussion</button>
         )}
+
         <div className={`rounded-lg mt-[135px] py-5 ${showThreadsList ? '' : 'hidden'}`}>
             <button type="button" onClick={handleOpenForm} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] h-[36px] w-[154px]">+ Create thread</button>
             {/* temporary loading message */}
             {loading && (
                 <p className="py-4">Loading threads...</p>
             )}
-            {threads.map(thread => (
-                <div key={thread.id} onClick={() => openActiveThread(thread)} className="role=button px-8 py-5 bg-white border border-[#CCCCFF] rounded-[10px] mt-5 cursor-pointer">
-                    <Comment type="preview" user_email={thread.user_email} title={thread.name} content={thread.content}/>
-                </div>
-            ))}
-            
-            
-            
+            <div className="flex flex-col gap-[17px] pt-8 ">
+              {threads.map(thread => (
+                  <div key={thread.id} onClick={() => openActiveThread(thread)} className="role=button px-8 py-5 bg-white border border-[#CCCCFF] rounded-[10px] cursor-pointer">
+                      <Comment type="preview" user_email={thread.user_email} title={thread.name} content={thread.content}/>
+                  </div>
+              ))}   
+            </div>  
         </div>
         
 

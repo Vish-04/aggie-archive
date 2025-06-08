@@ -79,7 +79,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
             >
               Post comment
             </button>
-            <button onClick={() => setText('')} type="button" className="bg-[#ECEEF8] text-[#483183] border border-[#483183] rounded-[6px] px-4 py-1.5 my-2.5 cursor-pointer">Cancel</button>
+            <button onClick={() => setText('')} type="button" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded-[6px] px-4 py-1.5 my-2.5 cursor-pointer">Cancel</button>
           </div>
   
 )}
@@ -88,7 +88,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
       {loading && (
         <p className="py-4">Loading comments...</p>
       )}
-      <div className="relative left-[-9]">
+      <div className="relative left-[-9] top-4">
         {/* display every top-level comment under thread */}
         {comments.map(comment => (
           <div key={comment.id} className="mb-2">
