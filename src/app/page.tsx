@@ -11,7 +11,7 @@ export default function Home() {
   
   if(isLoading) {
     return (
-      <div className="">
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
         Loading...  
       </div>
     );

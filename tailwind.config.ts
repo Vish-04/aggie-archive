@@ -16,6 +16,7 @@ export default {
         mainGray: '#EAEAEA',
         purple: "#EDEFFA",
         darkPurple: "#483183",
+        brightPurple: "#8347E7",
       },
        fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],
