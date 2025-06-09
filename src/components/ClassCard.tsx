@@ -16,14 +16,14 @@ export default function ClassCard({course, onToggleClass, onToggleArchive, isArc
 
 	return (
 		<div
-			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center h-[295px] w-[292px] cursor-pointer"
+			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center min-h-[295px] w-full cursor-pointer"
 			onClick={() => {
 				window.location.href = `/discussion/${course.id}`
 			}}>
 			<Image
 				src={"class-image.svg"}
 				alt={"Default class card image"}
-				width={280}
+				width={500}
 				height={160}
 			/>
 			<div className="flex flex-col px-2 pt-1.5 gap-1 w-full">

@@ -133,7 +133,7 @@ export default function Dashboard(){
         <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
 
         <h2 className="text-3xl font-semibold mt-12 mb-6">My Classes</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-3">
           {currClasses.map(course => (
             <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
           ))}

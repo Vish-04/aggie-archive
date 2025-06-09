@@ -79,7 +79,7 @@ export default function Header() {
 												window.location.href = '/api/auth/logout';
 											}}
 											className="flex items-center gap-2 px-3 py-2 w-full text-black font-bold">
-											< LogOut onClick={() => {
+											<LogOut onClick={() => {
 												window.location.href = '/api/auth/logout'
 											}}/> Sign Out
 										</button>

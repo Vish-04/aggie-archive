@@ -47,7 +47,13 @@ export default function Home() {
 									and notes
 								</h1>
 								<p className="text-pinkPurple text-2xl">See what your classmates are up to now!</p>
-								<button className="bg-brightPurple px-7 py-2.5 mt-3 rounded-lg text-white text-xl w-fit">Get started
+								<button
+									className="bg-brightPurple px-7 py-2.5 mt-3 rounded-lg text-white text-xl w-fit"
+									onClick={() => {
+										window.location.href = '/api/auth/login';
+									}}
+								>
+									Get started
 								</button>
 							</div>
 
