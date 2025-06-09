@@ -16,7 +16,7 @@ export default function ClassCard({course, onToggleClass, onToggleArchive, isArc
 
 	return (
 		<div
-			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center md: min-h-[232px] lg:min-h-[295px] w-full cursor-pointer"
+			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center md: min-h-[232px] md:min-h-[260px] lg:min-h-[295px] w-full cursor-pointer"
 			onClick={() => {
 				window.location.href = `/discussion/${course.id}`
 			}}>
