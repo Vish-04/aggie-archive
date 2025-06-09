@@ -36,9 +36,9 @@ export default function Home() {
 					</>
 				) : (
 					<>
-						<div className="relative flex flex-row gap-10 pt-20 pb-20 pl-16 justify-center ">
-							<div className="flex gap-6 flex-col py-28">
-								<h1 className='text-darkPurple text-5xl font-[500] leading-[1.25]'>
+						<div className="relative flex flex-col xl:flex-row gap-20 xl:gap-10 items-center xl:p-20 justify-center ">
+							<div className="flex gap-3 md:gap-6 flex-col px-10 pt-16 md:pt-28 md:pb-10 xl:py-28">
+								<h1 className='text-darkPurple text-3xl md:text-5xl font-[500] md:leading-[1.25]'>
 									An <span
 									className="font-semibold bg-gradient-to-r from-brightPurple  to-gradientPink text-transparent bg-clip-text">all-in-one hub</span>
 									<br/>
@@ -46,9 +46,9 @@ export default function Home() {
 									<br/>
 									and notes
 								</h1>
-								<p className="text-pinkPurple text-2xl">See what your classmates are up to now!</p>
+								<p className="text-pinkPurple text-lg md:text-2xl">See what your classmates are up to now!</p>
 								<button
-									className="bg-brightPurple px-7 py-2.5 mt-3 rounded-lg text-white text-xl w-fit"
+									className="bg-brightPurple px-6 py-2 md:px-7 md:py-2.5 mt-3 rounded-lg text-white text-lg md:text-xl w-fit"
 									onClick={() => {
 										window.location.href = '/api/auth/login';
 									}}
@@ -63,12 +63,12 @@ export default function Home() {
 								height={500}
 								unoptimized={true}
 								alt="Landing page graphic"
-								className="object-contain hidden lg:block"
+								className="object-contain px-6 md:px-20 xl:px-0"
 							/>
 						</div>
 
-						<div className="flex flex-col lg:flex-row gap-10 justify-center pb-20">
-							<LandingPageCard className="lg:pt-24">
+						<div className="flex flex-col xl:flex-row gap-4 md:gap-6 xl:gap-10 justify-center pb-20 pt-12 md:pt-28 xl:pt-0">
+							<LandingPageCard className="xl:pt-24">
 								<Image
 									src="/landing-speech.svg"
 									width={140}
@@ -114,7 +114,7 @@ export default function Home() {
 								</p>
 							</LandingPageCard>
 
-							<LandingPageCard className="lg:pt-24">
+							<LandingPageCard className="xl:pt-24">
 								<Image
 									src="/landing-people.svg"
 									width={140}
