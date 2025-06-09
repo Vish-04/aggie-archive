@@ -12,6 +12,7 @@ export default function Footer() {
 				/>
 				<h2 className="text-base text-darkPurple font-bold mt-4"> Created by</h2>
 			</div>
+
 			<div className="flex justify-between items-center">
 				<p className="text-darkPurple text[15px]">@ Spring Quarter 2025 | ECS 162</p>
 				<p className="text-darkPurple text[15px]">
