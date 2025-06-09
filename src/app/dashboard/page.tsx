@@ -128,7 +128,7 @@ export default function Dashboard(){
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
       <div className="px-2 md:px-12 pt-2">
-        <h1 className="text-2xl md:text-4xl font-bold pb-3 md:pb-4 pt-2 md:pt-9">Hi, {user?.name}!</h1>
+        <h1 className="text-3xl md:text-4xl font-bold pb-3 md:pb-4 pt-2 md:pt-9">Hi, {user?.name}!</h1>
 
         <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
 
