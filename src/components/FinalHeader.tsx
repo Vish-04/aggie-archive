@@ -32,7 +32,7 @@ export default function Header() {
 					onClick={() => {
 						window.location.href = '/dashboard';
 					}}
-					className="w-32"
+					className="w-32 md:w-36 xl:w-40"
 				/>
 
 				{/*User not logged in*/}
