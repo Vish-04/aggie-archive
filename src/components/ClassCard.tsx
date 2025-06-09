@@ -16,7 +16,7 @@ export default function ClassCard({course, onToggleClass, onToggleArchive, isArc
 
 	return (
 		<div
-			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center min-h-[295px] w-full cursor-pointer"
+			className="bg-purpleGray rounded-[10px] shadow-md p-3 gap-2.5 flex flex-col justify-start items-center md: min-h-[232px] lg:min-h-[295px] w-full cursor-pointer"
 			onClick={() => {
 				window.location.href = `/discussion/${course.id}`
 			}}>
@@ -26,10 +26,10 @@ export default function ClassCard({course, onToggleClass, onToggleArchive, isArc
 				width={500}
 				height={160}
 			/>
-			<div className="flex flex-col px-2 pt-1.5 gap-1 w-full">
+			<div className="flex flex-col px-2 pt-1 lg:pt-1.5 gap-1 w-full">
 				{/* class name + archive button */}
 				<div className="flex flex-row justify-between items-center">
-					<h2 className="text-[20px] font-bold text-darkPurple whitespace-nowrap">{course.course_code}</h2>
+					<h2 className="text-lg lg:text-[20px] font-bold text-darkPurple whitespace-nowrap">{course.course_code}</h2>
 					{/* if a current class, have archive button. if an unarchived class, have an unarchive button. */}
 					<div className="">
 						{!isArchived(course.course_code) ? (
@@ -63,7 +63,7 @@ export default function ClassCard({course, onToggleClass, onToggleArchive, isArc
 					</div>
 				</div>
 
-				<p className="text-[12px] font-normal text-darkPurple"><strong>UC Davis</strong> | {course.title}</p>
+				<p className="text-[10px] lg:text-[12px] font-normal text-darkPurple"><strong>UC Davis</strong> | {course.title}</p>
 			</div>
 		</div>
 	);

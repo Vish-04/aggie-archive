@@ -23,7 +23,7 @@ export default function Header() {
 
 	return (
 		<div>
-			<div className="flex justify-between items-center pb-3 pt-6 px-10">
+			<div className="flex justify-between items-center pb-1.5 md:pb-2 lg:pb-3 pt-4 lg:pt-6 px-5 lg:px-10">
 				<Image
 					src="/logo.svg"
 					width={160}
@@ -32,27 +32,28 @@ export default function Header() {
 					onClick={() => {
 						window.location.href = '/dashboard';
 					}}
+					className="w-32"
 				/>
 
 				{/*User not logged in*/}
 				{!isLoading && !user &&
-					<div className="text-right flex gap-3">
+					<div className="text-right flex gap-1 md:gap-2 lg:gap-3">
 						<button
 							className=" rounded-lg px-4 py-1"
 							onClick={() => {
 								window.location.href = '/api/auth/login';
 							}}
 						>
-							<span className="text-darkPurple font-medium">Sign up</span>
+							<span className="text-darkPurple font-medium text-xs md:text-sm lg:text-base">Sign up</span>
 						</button>
 
 						<button
-							className="bg-brightPurple rounded-lg font-medium px-6 py-2"
+							className="bg-brightPurple rounded-lg font-medium px-4 md:py-1.5 lg:px-6 lg:py-2"
 							onClick={() => {
 								window.location.href = '/api/auth/login';
 							}}
 						>
-							<span className="text-white">Log in</span>
+							<span className="text-white text-xs md:text-sm lg:text-base">Log in</span>
 						</button>
 					</div>
 				}
@@ -78,10 +79,10 @@ export default function Header() {
 											onClick={() => {
 												window.location.href = '/api/auth/logout';
 											}}
-											className="flex items-center gap-2 px-3 py-2 w-full text-black font-bold">
+											className="flex items-center gap-2 px-3 py-2.5 w-full text-black font-semibold">
 											<LogOut onClick={() => {
 												window.location.href = '/api/auth/logout'
-											}}/> Sign Out
+											}}/> Sign out
 										</button>
 									</div>
 								)}
@@ -90,7 +91,7 @@ export default function Header() {
 					</div>
 				}
 			</div>
-			<hr className='mx-10 border-t-1 border-buttonGray '/>
+			<hr className='mx-5 lg:mx-10 border-t-1 border-buttonGray '/>
 		</div>
 
 	)
