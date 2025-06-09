@@ -39,25 +39,23 @@ const Page = () => {
 
     getClass();
   }, [classId]);
+  //moved this outside so i can call it later after user creates a new thread so they can see new thread when they click "back to discussion" without refreshing
+  async function getThreads(){
+    try{const res = await fetchThreads(classId);
 
+    console.log("THREADS",res);
+    if('message' in res){
+        setThreads([]);
+    } else {
+        setThreads(res);
+    }
+    } catch(error){
+        console.error("Error", error);
+    } finally{
+        setLoading(false)
+    }
+  }
   useEffect(() => {
-        async function getThreads(){
-
-
-            try{const res = await fetchThreads(classId);
-
-            console.log("THREADS",res);
-            if('message' in res){
-                setThreads([]);
-            } else {
-                setThreads(res);
-            }
-            } catch(error){
-                console.error("Error", error);
-            } finally{
-                setLoading(false)
-            }
-        }
         getThreads();
     }, []);
 
@@ -76,6 +74,7 @@ const Page = () => {
     setShowCreateThread(false);
     setActiveThread(newThread);
     setOpenThread(true);
+    getThreads();
   }
 
   if (invalidClass) {
@@ -115,7 +114,7 @@ const Page = () => {
             <button type="button" onClick={handleOpenForm} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] h-[36px] w-[154px]">+ Create thread</button>
             {/* temporary loading message */}
             {loading && (
-                <p className="py-4">Loading threads...</p>
+                <p className="py-16">Loading threads...</p>
             )}
             <div className="flex flex-col gap-[17px] pt-8 ">
               {threads.map(thread => (
