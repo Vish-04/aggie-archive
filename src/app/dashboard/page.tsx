@@ -127,19 +127,19 @@ export default function Dashboard(){
 
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">
-      <div className="pl-12 pt-2">
-        <h1 className="text-3xl font-bold mb-2 mt-9">Hi, {user?.name}!</h1>
+      <div className="px-12 pt-2">
+        <h1 className="text-4xl font-bold pb-4 pt-9">Hi, {user?.name}!</h1>
 
         <SearchBar onToggleClass={handleClasses} isCurrent={checkCurrent} />
 
-        <h2 className="text-2xl font-semibold mt-10 mb-6">My Classes</h2>
+        <h2 className="text-3xl font-semibold mt-10 mb-6">My Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {currClasses.map(course => (
             <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
           ))}
         </div>
 
-        <h2 className="text-2xl font-semibold mt-12 mb-6">Archived Classes</h2>
+        <h2 className="text-3xl font-semibold mt-10 mb-6">Archived Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {archivedClasses.map(course => (
             <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>

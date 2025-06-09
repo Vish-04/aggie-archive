@@ -23,6 +23,9 @@ export default {
         lightGradientBlue: "#E7EBFF",
         lightGradientPink: "#FFEDFB",
         lightGradientOrange: "#FFEDF3",
+        purpleGray: '#F6F3FF',
+        purpleBorderGray: '#AB97CC',
+
       },
        fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],
