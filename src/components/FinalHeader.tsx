@@ -60,13 +60,15 @@ export default function Header() {
 				{/*User is logged in*/}
 				{!isLoading && user &&
 					<div>
-						<div className="flex flex-row pt-6 py-2">
+						<div className="flex flex-row py-2 justify-between items-center">
 							<div className="text-right flex" ref={logoutRef}>
-								<button className='flex row gap-4' onClick={() => setLogout(!logout)}>
-									<span className="text-base mt-2 font-bold text-darkPurple">{user.name} </span>
+								<button className="flex items-center gap-3" onClick={() => setLogout(!logout)}>
+									<span className="text-base font-bold text-darkPurple">{user.name} </span>
 									<Image
 										src="/profile.svg"
 										alt="Profile Image"
+										width={40}
+										height={40}
 									/>
 								</button>
 								{logout && (
