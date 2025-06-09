@@ -6,7 +6,7 @@ import Footer from "@/components/Footer"
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '700'], 
+  weight: ['400', '500', '700'], 
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -53,7 +53,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
     }
 } 
   return (
-    <div className="bg-white border border-[#CCCCFF] font-dm px-10 py-10 rounded-lg  flex flex-col gap-[20px]">
+    <div className="bg-white mt-[185px] border border-[#CCCCFF] font-dm px-10 py-10 rounded-lg  flex flex-col gap-[20px]">
 
       <Comment user_email={thread.user_email} title={thread.name} content={thread.content}/>
 
@@ -66,28 +66,36 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
             onChange={(e) => setText(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            className={`border border-[#B0B0B0]  placeholder-[#A0A0A0] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
-            ${focused || text ? 'h-48' : 'h-12'} overflow-hidden`}
+            className={`border border-[#B0B0B0]  placeholder-[#AB97CC] rounded p-4 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
+            ${focused || text ? 'h-52' : 'h-14'} overflow-hidden`}
             style={{ minHeight: 48, border: '1px solid #CCCCFF' }}
           />
         {/* only display 'Post comment' if user types something inside comment form */}
         {text.trim() !== '' && (
-  <button
-    type="submit"
-    className="bg-gray-200 text-black rounded px-4 py-2 mt-[10px] transition-all duration-300 ease-in-out cursor-pointer"
-  >
-    Post comment
-  </button>
+          <div className="flex gap-[10px] mb-3">
+            <button
+              type="submit"
+              className="bg-[#8347E7] text-white rounded-[6px] px-4 py-1.5 my-2.5 transition-all duration-300 ease-in-out cursor-pointer"
+            >
+              Post comment
+            </button>
+            <button onClick={() => setText('')} type="button" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded-[6px] px-4 py-1.5 my-2.5 cursor-pointer">Cancel</button>
+          </div>
+  
 )}
       </form>
       {/* temporary loading message */}
       {loading && (
         <p className="py-4">Loading comments...</p>
       )}
-      {/* display every top-level comment under thread */}
-      {comments.map(comment => (
-        <Comment key={comment.id} type="reply" title="placeholder" user_email={comment.user_email} content={comment.content}/>
-      ))}
+      <div className="relative left-[-9] top-4">
+        {/* display every top-level comment under thread */}
+        {comments.map(comment => (
+          <div key={comment.id} className="mb-2">
+            <Comment type="reply" title="placeholder" user_email={comment.user_email} content={comment.content}/>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
