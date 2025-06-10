@@ -42,10 +42,10 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
             {/* this div contains the comment and like button info */}
             <div className={`${isReply ? 'pl-[55px] w-fit gap-4' : ''} text-[#483183] flex items-center justify-between mb-3 w-[97px]`}>
                 <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/comment.svg" alt="comment icon"/>
-                    <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16.8px]'} `}>3</p>
+                    <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16.8px]'} `}>0</p>
                     <p className={`${isReply ? 'text-[16px]' : 'hidden'} `}>Reply in thread</p>
                 </button>
-                <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button"/><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>4</p></button>
+                <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button"/><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
             </div>
         </div>
     )
