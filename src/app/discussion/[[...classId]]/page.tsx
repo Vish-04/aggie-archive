@@ -87,7 +87,7 @@ const Page = () => {
 	return (
 
 		<div>
-			<div className="pl-[69px] pr-[51px]">
+			<div className="px-16">
 				<div className="absolute flex gap-[28px] top-[140px] h-[52px] left-[69px] items-center">
 					{/* Course code (i.e., ECS162) */}
 					<h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>

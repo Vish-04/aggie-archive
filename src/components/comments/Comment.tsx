@@ -40,12 +40,12 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
             <p className={`${isPreview ? 'line-clamp-1 text-[16px] mb-2' : isReply ? 'pl-[63px] mb-4' : 'text-[20px]'}`}>{content}</p>
             
             {/* this div contains the comment and like button info */}
-            <div className={`${isReply ? 'pl-[63px]' : ''} flex items-center gap-[22px] mb-3`}>
-                <button className="flex items-center gap-[11px]"><img className={`${isPreview ? 'w-[16px] h-[16px]' : 'w-[20px] h-[20px]'} `} src="/comment.svg" alt="comment icon"/>
-                    <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16px]'} `}>3</p>
+            <div className={`${isReply ? 'pl-[55px] w-fit gap-4' : ''} text-[#483183] flex items-center justify-between mb-3 w-[97px]`}>
+                <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/comment.svg" alt="comment icon"/>
+                    <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16.8px]'} `}>0</p>
                     <p className={`${isReply ? 'text-[16px]' : 'hidden'} `}>Reply in thread</p>
                 </button>
-                <button className="flex items-center gap-[11px]"><img className={`${isPreview ? 'w-[16px] h-[16px]' : 'w-[20px] h-[20px]'} `} src="/like.svg" alt="like button"/><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>4</p></button>
+                <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button"/><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
             </div>
         </div>
     )
