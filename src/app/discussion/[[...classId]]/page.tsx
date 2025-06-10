@@ -87,31 +87,33 @@ const Page = () => {
 	return (
 
 		<div>
-			<div className="px-16">
-				<div className="absolute flex gap-[28px] top-[140px] h-[52px] left-[69px] items-center">
-					{/* Course code (i.e., ECS162) */}
-					<h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
-					{/* Add to dashboard button */}
-					<button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+
-						Add to Dashboard
-					</button>
-				</div>
-				{/* "Discussion" and "Notes" toggle */}
-				<div className="flex justify-end absolute top-[140px] right-[60px]">
-					<div className="bg-[#ECEEF8] text-[#483183] font-medium w-[238px] p-1 rounded-[8px]">
-						<button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2"
-										onClick={() => router.push(`/discussion/${classId}`)}>Discussion
+			<div className="px-16 pt-14">
+				<div className="flex justify-between">
+					<div className="flex gap-[28px] h-[52px] pb-14 pt-10 pl-18 items-center">
+						{/* Course code (i.e., ECS162) */}
+						<h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
+						{/* Add to dashboard button */}
+						<button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+
+							Add to Dashboard
 						</button>
-						<button type="submit" className="text-[18px] rounded h-[39px] px-5 py-2"
-										onClick={() => router.push(`/notes/${classId}`)}>Notes
-						</button>
+					</div>
+					{/* "Discussion" and "Notes" toggle */}
+					<div className="flex justify-center items-center">
+						<div className="bg-[#ECEEF8] text-[#483183] font-medium w-[238px] p-1 rounded-[8px] h-fit">
+							<button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2"
+											onClick={() => router.push(`/discussion/${classId}`)}>Discussion
+							</button>
+							<button type="submit" className="text-[18px] rounded h-[39px] px-5 py-2"
+											onClick={() => router.push(`/notes/${classId}`)}>Notes
+							</button>
+						</div>
 					</div>
 				</div>
 				{/* Display Back to Discussion button*/}
 				{openThread && (
 
 					<button type="submit"
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
+									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
 									onClick={() => {
 										setOpenThread(false)
 										setShowThreadsList(true);
@@ -120,9 +122,9 @@ const Page = () => {
 									}}>Back to Discussion</button>
 				)}
 
-				<div className={`rounded-lg mt-[135px] py-5 ${showThreadsList ? '' : 'hidden'}`}>
+				<div className={`rounded-lg ${showThreadsList ? '' : 'hidden'}`}>
 					<button type="button" onClick={handleOpenForm}
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] absolute top-[227px] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
+									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
 						Create thread
 					</button>
 					{/* temporary loading message */}
@@ -148,7 +150,7 @@ const Page = () => {
 
 
 				{openThread && activeThread && (
-					<div className="left-[64px] bg-white mt-16">
+					<div className="left-[64px] bg-white mt-8">
 						<DiscussionThread thread={activeThread}/>
 					</div>
 				)}
