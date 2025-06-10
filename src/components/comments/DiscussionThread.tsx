@@ -81,7 +81,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
             >
               Post comment
             </button>
-            <button onClick={() => setText('')} type="button" className="bg-[#F6F3FF] text-[#483183]  mt-[10px] border border-[#8347E7] rounded-[6px] px-4 py-2 cursor-pointer">Cancel</button>
+            <button onClick={() => setText('')} type="button" className="bg-purple text-[#483183]  mt-[10px] border border-[#8347E7] rounded-[6px] px-4 py-2 cursor-pointer">Cancel</button>
           </div>
         )}
       </form>

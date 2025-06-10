@@ -181,7 +181,7 @@ const Page = () => {
 								) : (
 									<button
 										type="button"
-										className="bg-[#F6F3FF] font-[400] text-[#483183] text-[16px] rounded w-[226px] h-[36px] border border-[#8347E7]"
+										className="bg-purple font-[400] text-[#483183] text-[16px] rounded w-[226px] h-[36px] border border-[#8347E7]"
 										onClick={handleRemoveFromDashboard}
 									>
 										- Remove from Dashboard
@@ -235,13 +235,13 @@ const Page = () => {
 				{/* Display Back to Discussion button*/}
 				{(openThread || showCreateThread) && (
 					<button type="submit"
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] px-5 py-1"
+									className="bg-[#ECEEF8] flex items-center gap-2 text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] px-3 py-1"
 									onClick={() => {
 										setOpenThread(false)
 										setShowThreadsList(true);
 										setShowCreateThread(false);
 										setActiveThread(null);
-									}}>Back to Discussion</button>
+									}}><img src="/arrow_back.svg" className="h-[15px]" alt="back icon" ></img>Back to Discussion</button>
 				)}
 
 				<div className={`rounded-lg ${showThreadsList ? '' : 'hidden'}`}>
