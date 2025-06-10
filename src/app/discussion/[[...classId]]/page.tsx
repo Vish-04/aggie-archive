@@ -88,7 +88,7 @@ const Page = () => {
 
 		<div>
 			<div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-10">
-				<div className="flex justify-between pt-4 pb-6 md:pb-4 md:py-8 lg:py-12">
+				<div className="flex justify-between pt-4 pb-6 md:pb-4 md:py-8 lg:pb-12 pt-10">
 					<div className="flex gap-[28px] items-center">
 						{/* Course code (i.e., ECS162) */}
 						<h1 className="text-3xl md:text-[40px] font-bold">{classData?.course_code}</h1>
