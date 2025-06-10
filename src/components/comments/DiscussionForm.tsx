@@ -38,8 +38,8 @@ export default function DiscussionForm({ classId, onCancel, onCreateThread }: Di
       }
     }
     return (
-      <div className="bg-white border border-[#CCCCFF] mt-[145px] h-[629px] rounded-[10px] px-10 py-12">
-        <h1 className="text-[32px] text-left mb-8 font-semibold">Create a thread</h1>
+      <div className="bg-white border border-[#CCCCFF] rounded-[10px] font-sans px-[3%] py-[4%]">
+        <h1 className="text-3xl text-left mb-8 font-sans font-[600]">Create a thread</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <textarea
             name="Title"
@@ -47,20 +47,19 @@ export default function DiscussionForm({ classId, onCancel, onCreateThread }: Di
             onChange={(e) => setTitle(e.target.value)}
             required
             placeholder="Title"
-            className=" w-full h-full leading-none border border-[#CCCCFF]  placeholder-[#AB97CC] rounded-lg text-[20px] px-6 pt-4 pb-0 resize-none"
+            className="border border-[#CCCCFF] placeholder-[#AB97CC] rounded h-[59px] text-[20px] font-[400] p-3 resize-none "
           />
-         
           <textarea 
             name="Text"
             value={text}
             onChange={(e) => setText(e.target.value)}
             required
             placeholder="Text"
-            className="border border-[#CCCCFF] font-[400] rounded px-6 py-4 text-[20px] placeholder-[#AB97CC] min-h-[291px] resize-none"
+            className="border border-[#CCCCFF] font-[400] rounded p-3 text-[20px] placeholder-[#AB97CC] h-[291px] resize-none"
           />
-          <div className="flex gap-[17px] ml-auto mt-[15px] font-[500]">
-            <button type="button" onClick={onCancel} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded-[8px] px-4 py-1  text-[20px]">Cancel</button>
-            <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded-[8px] px-4 py-1.5 text-[20px]">
+          <div className="flex gap-[17px] ml-auto mt-[15px]">
+            <button type="button" onClick={onCancel} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">Cancel</button>
+            <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">
               Create thread
             </button>
           </div>
