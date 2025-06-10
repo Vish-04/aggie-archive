@@ -17,7 +17,8 @@ const Page = () => {
 	const [userData, setUserData] = useState<User | null>(null);
 	const { user } = useUser();
 
-	//   console.log(user);
+
+	console.log(user);
 	const [loading, setLoading] = useState(true);
 	const [showCreateThread, setShowCreateThread] = useState(false);
 	const [activeThread, setActiveThread] = useState<Thread | null>(null);
@@ -34,7 +35,6 @@ const Page = () => {
 
 
 	const handleAddToDashboard = async () => {
-		console.log("Added to dashboard: ", classData?.course_code);
 		if (classData && userData) {
 			const updated = [...currClasses, classData];
 			setCurrClasses(updated);
@@ -153,7 +153,6 @@ const Page = () => {
 	if (invalidClass) {
 		return <InvalidPage />;
 	}
-	console.log("code", classData?.course_code);
 	return (
 
 		<div>
@@ -231,6 +230,7 @@ const Page = () => {
 									title={thread.name}
 									content={thread.content}
 								/>
+
 							</div>
 						))}
 					</div>

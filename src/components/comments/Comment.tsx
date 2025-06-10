@@ -23,7 +23,7 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content, com
 
 
   return (
-    <div className={`bg-white rounded-lg font-dm flex flex-col ${isPreview ? 'gap-[13px]' : isReply ? 'gap-0' : 'gap-[20px]'}`}>
+    <div className={`relative group bg-white rounded-lg font-dm flex flex-col ${isPreview ? 'gap-[13px]' : isReply ? 'gap-0' : 'gap-[20px]'}`}>
 
       {/* this div contains the user icon and username */}
       <div className={`flex items-center  ${isPreview ? 'gap-[15px] mt-3' : 'gap-[12px]'} `}>
@@ -47,7 +47,16 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content, com
           <p className={`${isReply ? 'text-[16px]' : 'hidden'} `}>Reply in thread</p>
         </button>
         <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button" /><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
+        <button className={`absolute left-28 w-[24px] h-[24px] ${isPreview ? "hidden" : ""} ${isReply ? 'left-[263px]' : ""}`}><img className="" src="/trashcan.svg"></img></button>
       </div>
+      {isPreview &&
+        <button className="absolute right-[-32px] mt-[155px] hidden group-hover:flex gap-[10px] font-[500] text-[16px] text-[#B3261E] w-[104px] h-[35px] rounded-lg bg-[#F6F3FF] px-3 py-2"
+          style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+
+          <img className="w-[18px] h-[19px]" src="/trashcan.svg" alt="trashcan icon" />
+          Delete
+        </button>
+      }
     </div>
   )
 }
