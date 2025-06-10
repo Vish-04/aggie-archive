@@ -53,7 +53,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
     }
 } 
   return (
-    <div className="bg-white border border-[#CCCCFF] font-dm px-10 py-10 rounded-lg  flex flex-col gap-[20px]">
+    <div className="bg-white border border-[#CCCCFF] font-dm px-6 py-6 md:px-10 md:py-10 rounded-lg flex flex-col gap-3 md:gap-[20px]">
 
       <Comment user_email={thread.user_email} title={thread.name} content={thread.content}/>
 
