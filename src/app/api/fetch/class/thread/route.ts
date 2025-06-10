@@ -22,8 +22,6 @@ export const POST =  withApiAuthRequired(async function handler(
       .select('*')
       .eq('class_id', class_id)
       .is('deleted', false)
-      //ADD TO DISPLAY NEWEST THREADS FIRST?
-      // .order('created_at', { ascending: false });
 
     if (threadError) {
       console.error('Error fetching threads:', threadError);
