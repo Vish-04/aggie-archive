@@ -87,8 +87,8 @@ const Page = () => {
 	return (
 
 		<div>
-			<div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-10">
-				<div className="flex justify-between pt-4 pb-6 md:pb-4 md:py-8 lg:pb-12 pt-10">
+			<div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">
+				<div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-12 lg:pt-10">
 					<div className="flex gap-[28px] items-center">
 						{/* Course code (i.e., ECS162) */}
 						<h1 className="text-3xl md:text-[40px] font-bold">{classData?.course_code}</h1>
@@ -123,7 +123,7 @@ const Page = () => {
 
 				<div className={`rounded-lg ${showThreadsList ? '' : 'hidden'}`}>
 					<button type="button" onClick={handleOpenForm}
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
+									className="bg-purple text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
 						Create thread
 					</button>
 					{/* temporary loading message */}
