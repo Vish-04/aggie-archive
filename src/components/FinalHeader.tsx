@@ -32,7 +32,7 @@ export default function Header() {
 					onClick={() => {
 						window.location.href = '/dashboard';
 					}}
-					className="w-32 md:w-36 xl:w-40"
+					className="w-32 md:w-36 xl:w-40 cursor-pointer"
 				/>
 
 				{/*User not logged in*/}
@@ -91,7 +91,7 @@ export default function Header() {
 					</div>
 				}
 			</div>
-			<hr className='mx-5 lg:mx-10 border-t-1 border-buttonGray '/>
+			<hr className='mx-5 lg:mx-10 border-t-1 border-periwinkle '/>
 		</div>
 
 	)

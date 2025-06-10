@@ -25,7 +25,7 @@ export default {
         lightGradientOrange: "#FFEDF3",
         purpleGray: '#F6F3FF',
         purpleBorderGray: '#AB97CC',
-
+        periwinkle: '#CCCCFF',
       },
        fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],

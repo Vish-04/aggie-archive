@@ -32,7 +32,7 @@ const Page = () => {
 	const [classData, setClassData] = useState<Class | null>(null);
 	const [invalidClass, setInvalidClass] = useState(false);
 	const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
-
+	const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
 	const handleAddToDashboard = async () => {
 		if (classData && userData) {
@@ -132,11 +132,16 @@ const Page = () => {
 		getThreadsAndCommentCount();
 	}, [classId]);
 
+	const toggleDropdown = () => {
+		setShowDropdownMenu(!showDropdownMenu);
+	};
+
 	const handleOpenForm = () => {
 		setShowCreateThread(true);
 		setShowThreadsList(false);
+		setShowDropdownMenu(false);
 	};
-
+	
 	const handleCloseForm = () => {
 		setShowCreateThread(false);
 		setShowThreadsList(true);
@@ -148,6 +153,7 @@ const Page = () => {
 		setActiveThread(newThread);
 		setOpenThread(true);
 		getThreadsAndCommentCount();
+		setShowDropdownMenu(false);
 	}
 
 	if (invalidClass) {
@@ -156,72 +162,101 @@ const Page = () => {
 	return (
 
 		<div>
-			<div className="px-16 pt-14">
-				<div className="flex justify-between">
-					<div className="flex gap-[28px] h-[52px] pb-14 pt-10 pl-18 items-center">
+			<div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">
+				<div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-10 lg:pt-10">
+					<div className="flex gap-[28px] items-center">
 						{/* Course code (i.e., ECS162) */}
-
-						<h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
+						<h1 className="text-3xl md:text-[40px] font-bold">{classData?.course_code}</h1>
 						{/* Add to dashboard button */}
-						{!isClassInDashboard ?
-							(
-								<button
-									type="button"
-									className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]"
-									onClick={handleAddToDashboard}
-								>
-									+ Add to Dashboard
+						<div className="hidden md:inline">
+							{!isClassInDashboard ?
+								(
+									<button
+										type="button"
+										className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]"
+										onClick={handleAddToDashboard}
+									>
+										+ Add to Dashboard
+									</button>
+								) : (
+									<button
+										type="button"
+										className="bg-[#F6F3FF] font-[400] text-[#483183] text-[16px] rounded w-[226px] h-[36px] border border-[#8347E7]"
+										onClick={handleRemoveFromDashboard}
+									>
+										- Remove from Dashboard
+									</button>
+								)
+							}
+						</div>
+						{/* drop down menu */}
+						<div className="md:hidden z-40">
+							<img onClick={toggleDropdown} src="/arrow.svg" alt="arrow icon" style={{transform: showDropdownMenu ? 'rotate(180deg)' : 'rotate(0deg)'}}></img>
+							{showDropdownMenu ? (<div className="absolute left-[22px] mt-[5px] flex flex-col gap-[1px]">
+								{!isClassInDashboard ?
+									(
+										<button
+											type="button"
+											className="bg-[#8347E7] font-[400] text-white text-[12px] rounded w-[149px] h-[32px]"
+											onClick={handleAddToDashboard}
+										>
+											+ Add
+										</button>
+									) : (
+										<button
+											type="button"
+											className="bg-[#F6F3FF] font-[400] text-[#483183] text-[12px] rounded w-[149px] h-[32px] border border-[#8347E7]"
+											onClick={handleRemoveFromDashboard}
+										>
+											- Remove
+										</button>
+									)
+								}
+								<button type="button"
+									className="bg-[#8347E7] font-[400] text-white text-[12px] rounded w-[149px] h-[32px]"
+									onClick={handleOpenForm}>
+										+ Thread
 								</button>
-							) : (
-								<button
-									type="button"
-									className="bg-[#F6F3FF] font-[400] text-[#483183] text-[16px] rounded w-[226px] h-[36px] border border-[#8347E7]"
-									onClick={handleRemoveFromDashboard}
-								>
-									- Remove from Dashboard
-								</button>
-							)
-						}
+							</div>) : (<div className="hidden"></div>)}
+						</div>
 					</div>
 					{/* "Discussion" and "Notes" toggle */}
 					<div className="flex justify-center items-center">
-						<div className="bg-[#F6F3FF] text-[#483183] font-medium w-[238px] p-1 rounded-[8px] h-fit">
-							<button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2"
-								onClick={() => router.push(`/discussion/${classId}`)}>Discussion
+						<div className="bg-[#ECEEF8] text-[#483183] font-medium p-1 rounded-md md:rounded-[8px]">
+							<button type="submit" className="bg-white text-[16px] md:text-[18px] rounded px-4 py-2 md:px-6 md:py-2"
+											onClick={() => router.push(`/discussion/${classId}`)}>Discussion
 							</button>
-							<button type="submit" className="text-[18px] rounded h-[39px] px-5 py-2"
-								onClick={() => router.push(`/notes/${classId}`)}>Notes
+							<button type="submit" className="text-[16px] md:text-[18px] rounded h-[39px] px-4 py-2 md:px-6 md:py-2"
+											onClick={() => router.push(`/notes/${classId}`)}>Notes
 							</button>
 						</div>
 					</div>
 				</div>
 				{/* Display Back to Discussion button*/}
-				{openThread && (
-
+				{(openThread || showCreateThread) && (
 					<button type="submit"
-						className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
-						onClick={() => {
-							setOpenThread(false)
-							setShowThreadsList(true);
-							setShowCreateThread(false);
-							setActiveThread(null);
-							getThreadsAndCommentCount();
-						}}>Back to Discussion</button>
+									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] px-5 py-1"
+									onClick={() => {
+										setOpenThread(false)
+										setShowThreadsList(true);
+										setShowCreateThread(false);
+										setActiveThread(null);
+									}}>Back to Discussion</button>
 				)}
 
 				<div className={`rounded-lg ${showThreadsList ? '' : 'hidden'}`}>
 					<button type="button" onClick={handleOpenForm}
-						className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
+									className="hidden md:inline bg-purple text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
 						Create thread
 					</button>
 					{/* temporary loading message */}
 					{loading && (
 						<p className="py-16">Loading threads...</p>
 					)}
-					<div className="flex flex-col gap-[17px] pt-8 ">
+					<div className="flex flex-col gap-2 md:gap-[17px] pt-4 md:pt-8 ">
 						{threads.map(thread => (
 							<div key={thread.id} onClick={() => openActiveThread(thread)}
-								className="role=button px-8 py-5 bg-white border border-[#CCCCFF] rounded-[10px] cursor-pointer">
+								className="role=button px-5 py-2 md:px-8 md:py-5 bg-white border border-[#CCCCFF] rounded-[10px] cursor-pointer">
 
 								<Comment
 									commentCount={commentCounts[thread.id] ?? 0}
@@ -238,15 +273,15 @@ const Page = () => {
 
 
 				{showCreateThread && (
-					<div className={`${!showCreateThread ? 'hidden' : ''}  mt-16 `}>
-						<DiscussionForm classId={classId} onCreateThread={openActiveThread} onCancel={handleCloseForm} />
+					<div className={`${!showCreateThread ? 'hidden' : 'pt-4 md:pt-8'}`}>
+						<DiscussionForm classId={classId} onCreateThread={openActiveThread} onCancel={handleCloseForm}/>
 					</div>
 				)}
 
 
 				{openThread && activeThread && (
-					<div className="left-[64px] bg-white mt-8">
-						<DiscussionThread thread={activeThread} />
+					<div className="left-[64px] bg-white pt-4 md:pt-8">
+						<DiscussionThread thread={activeThread}/>
 					</div>
 				)}
 			</div>

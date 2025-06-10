@@ -37,7 +37,7 @@ export default function Home() {
 				) : (
 					<>
 						<div className="relative flex flex-col xl:flex-row gap-20 xl:gap-10 items-center xl:py-20 justify-center ">
-							<div className="flex gap-3 md:gap-6 flex-col px-10 pt-16 md:pt-28 md:pb-10 lg:px-0 xl:py-28">
+							<div className="flex gap-3 md:gap-6 flex-col px-10 pt-20 md:pt-28 md:pb-10 lg:px-0 xl:py-28">
 								<h1 className='text-darkPurple text-3xl md:text-5xl font-[500] md:leading-[1.25]'>
 									An <span
 									className="font-semibold bg-gradient-to-r from-brightPurple  to-gradientPink text-transparent bg-clip-text">all-in-one hub</span>
@@ -63,11 +63,11 @@ export default function Home() {
 								height={500}
 								unoptimized={true}
 								alt="Landing page graphic"
-								className="object-contain px-6 md:px-20 xl:px-0"
+								className="hidden xl:block object-contain px-6 md:px-20 xl:px-0"
 							/>
 						</div>
 
-						<div className="flex flex-col xl:flex-row gap-4 md:gap-6 xl:gap-10 justify-center pb-20 pt-12 md:pt-28 xl:pt-0">
+						<div className="flex flex-col xl:flex-row gap-6 md:gap-6 xl:gap-10 justify-center pb-20 pt-24 md:pt-28 xl:pt-0">
 							<LandingPageCard className="xl:pt-24">
 								<Image
 									src="/landing-speech.svg"
