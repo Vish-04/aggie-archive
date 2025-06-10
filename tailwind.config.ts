@@ -16,6 +16,16 @@ export default {
         mainGray: '#EAEAEA',
         purple: "#EDEFFA",
         darkPurple: "#483183",
+        brightPurple: "#8347E7",
+        pinkPurple: "#A962D1",
+        brightPink: "#EF89F6",
+        gradientPink: "#CD72DA",
+        lightGradientBlue: "#E7EBFF",
+        lightGradientPink: "#FFEDFB",
+        lightGradientOrange: "#FFEDF3",
+        purpleGray: '#F6F3FF',
+        purpleBorderGray: '#AB97CC',
+
       },
        fontFamily: {
         'dm-sans': ['"DM Sans"', 'sans-serif'],
