@@ -14,7 +14,7 @@ export default {
         foreground: "var(--foreground)",
         buttonGray: '#D9D9D9',
         mainGray: '#EAEAEA',
-        purple: "#EDEFFA",
+        purple: "#8347E7",
         darkPurple: "#483183",
         brightPurple: "#8347E7",
         pinkPurple: "#A962D1",
@@ -24,7 +24,10 @@ export default {
         lightGradientPink: "#FFEDFB",
         lightGradientOrange: "#FFEDF3",
         purpleGray: '#F6F3FF',
+        periwinkle: '#CCCCFF',
         purpleBorderGray: '#AB97CC',
+        blueGray: '#F6F3FF',
+        mainPurple: '#8347E7',
 
       },
        fontFamily: {

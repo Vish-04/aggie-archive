@@ -53,22 +53,25 @@ export default function Notes(){
 
     return(
         <div>   
-            <div className="flex justify-between items-center px-16 py-10">
+          {/* the Top header part */}
+            <div className="flex justify-between items-center sm:px-16 px-8 py-10">
                 <div className="flex items-center gap-8">
-                    <h1 className='font-bold text-[40px]'>{classData?.title}</h1>
+                    <h1 className='font-bold text-[20px] sm:text-[36px]'>{classData?.course_code}</h1>
                 </div>
-                <div className="flex gap-2 bg-purple p-1 rounded-lg">
+                <div className="flex gap-2 bg-blueGray p-1 rounded-lg">
                     <button onClick={() => router.push(`/discussion/${classId}`)}
                      className="p-2 rounded-lg">Discussion</button>
                     <button className="bg-white py-2 px-4 rounded-lg" onClick={() => router.push(`/notes/${classId}`)}>Notes</button>
                 </div>
             </div>
-             <div className="flex justify-between items-center px-16">
-                <div className='flex flex-wrap gap-8 bg-purple w-[1400px] h-[641px] rounded-lg p-8'>
+
+             <div className="flex justify-between items-center sm:px-16 px-8">
+                <div className='flex flex-wrap gap-8 sm:gap-y-20 gap-y-16 bg-blueGray w-full h-full rounded-lg p-4 sm:p-8 pb-16'>
                      <button onClick={() => router.push(`/notes/upload/${classId}`)}
-                    className=" w-[192px] h-[255px]">
+                    className=" sm:w-[192px] sm:h-[255px] w-[120px] h-[176px]">
                         <img src="/uploadNote.svg" alt="" />
                     </button>
+                    
                     {documents.map((document) => (
                         <Files key={document.id} document={document} />
                     ))}
