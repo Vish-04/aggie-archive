@@ -121,7 +121,15 @@ export default function Upload(){
               <button
                 className='bg-purple border border-brightPurple px-4 py-2 rounded-lg text-darkPurple text-[20px]'
                 onClick={async () => {
+                  if (!title.trim()) {
+                    alert('Please enter a title for your document');
+                    return;
+                  }
                   if(selectedFile && user && user.email){
+                    console.log("selectedFile", selectedFile);
+                    console.log("title", title);
+                    console.log("classId", classId);
+                    console.log("user.email", user.email);
                     const res = await uploadFile(selectedFile, title, classId, user.email);
                     console.log(res);
                     if('message' in res){

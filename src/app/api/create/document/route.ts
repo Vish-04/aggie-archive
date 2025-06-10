@@ -20,6 +20,7 @@ export const POST = withApiAuthRequired(async (
         const { fileName, fileType, class_id, user_email } = await req.json();
         
         if (!fileName || !fileType || !class_id || !user_email) {
+            console.error('Missing required fields:', { fileName, fileType, class_id, user_email });
             return NextResponse.json(
                 { error: 'fileName, fileType, class_id, and user_email are required' },
                 { status: 400 }
