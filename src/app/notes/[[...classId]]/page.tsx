@@ -52,7 +52,7 @@ export default function Notes(){
     }
 
     return(
-      <div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-10">
+      <div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">
         {/*Header*/}
         <div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-12 lg:pt-10">
           <div className="flex gap-[28px] items-center">
