@@ -12,10 +12,11 @@ type CommentProps = {
   type?: 'preview' | 'reply',
   user_email: string,
   title: string,
-  content: string
+  content: string,
+  commentCount: number
 };
 
-const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) => {
+const Comment: React.FC<CommentProps> = ({ type, user_email, title, content, commentCount = 2 }) => {
   const isPreview = type === 'preview'; //this is for the list of thread previews
   const isReply = type === 'reply'; //this is for the replies displayed in the discussion thread
   //default is the styling corresponding to the full discussion thread view
@@ -29,7 +30,7 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
 
         {/* profile picture? using a placeholder user icon for now*/}
         <div>
-          <img className={`${isPreview ? 'w-[35px] h-[35px]' : 'w-[42px] h-[42px]'}`} src="/profile.svg" alt="user icon"/>
+          <img className={`${isPreview ? 'w-[35px] h-[35px]' : 'w-[42px] h-[42px]'}`} src="/profile.svg" alt="user icon" />
         </div>
 
         <p className={`w-[168px] text-[#483183] font-[500] ${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>{user_email}</p>
@@ -41,11 +42,11 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
 
       {/* this div contains the comment and like button info */}
       <div className={`${isReply ? 'pl-[55px] w-fit gap-4' : ''} text-[#483183] flex items-center justify-between mb-3 w-[97px]`}>
-        <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/comment.svg" alt="comment icon"/>
-          <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16.8px]'} `}>0</p>
+        <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/comment.svg" alt="comment icon" />
+          <p className={`${isPreview ? 'text-[14px]' : isReply ? 'hidden' : 'text-[16.8px]'} `}>{commentCount}</p>
           <p className={`${isReply ? 'text-[16px]' : 'hidden'} `}>Reply in thread</p>
         </button>
-        <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button"/><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
+        <button className="flex items-center gap-[8px]"><img className="w-[20px] h-[20px]" src="/thumbs_up.svg" alt="like button" /><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
       </div>
     </div>
   )

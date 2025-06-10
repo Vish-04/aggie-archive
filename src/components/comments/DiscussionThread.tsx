@@ -17,59 +17,61 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
   const { user } = useUser();
   const [focused, setFocused] = useState(false);
   const [comments, setComments] = useState<Post[]>([]);
+  const [commentsCount, setCommentsCount] = useState(0);
 
 
   // fetch comments under a specific thread from database
   const getComments = useCallback(async () => {
-    try{
+    try {
       const res = await fetchPosts(thread.id);
-      console.log("COMMENTS",res);
+      console.log("COMMENTS", res);
+      setCommentsCount(res.length);
       setComments(res);
-    } catch(err){
+    } catch (err) {
       console.error("Error:", err);
     }
   }, [thread.id]);
 
-    useEffect(() => {
-      getComments();
-      setLoading(false);
-    }, [getComments]);
+  useEffect(() => {
+    getComments();
+    setLoading(false);
+  }, [getComments]);
 
-  
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!user?.email) {
       console.error('User email is not available');
       return;
     }
-    try{
-        const response = await createPost(text, user.email, thread.id, thread.class_id);
-        console.log(response);
-        
-        setText('');
-        await getComments();
-    } catch(err){
-        console.error("Error:", err);
+    try {
+      const response = await createPost(text, user.email, thread.id, thread.class_id);
+      console.log(response);
+
+      setText('');
+      await getComments();
+    } catch (err) {
+      console.error("Error:", err);
     }
-} 
+  }
   return (
     <div className="bg-white border border-[#CCCCFF] font-dm px-10 py-10 rounded-lg  flex flex-col gap-[20px]">
 
-      <Comment user_email={thread.user_email} title={thread.name} content={thread.content}/>
+      <Comment commentCount={commentsCount} user_email={thread.user_email} title={thread.name} content={thread.content} />
 
       <form onSubmit={handleSubmit}>
         <textarea
-            name="Comment"
-            value={text}
-            required
-            placeholder="Add comment..."
-            onChange={(e) => setText(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            className={`border border-[#CCCCFF]  placeholder-[#AB97CC] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
+          name="Comment"
+          value={text}
+          required
+          placeholder="Add comment..."
+          onChange={(e) => setText(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          className={`border border-[#CCCCFF]  placeholder-[#AB97CC] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
             ${focused || text ? 'h-48' : 'h-12'} overflow-hidden`}
-            style={{ minHeight: 48, border: '1px solid #CCCCFF' }}
-          />
+          style={{ minHeight: 48, border: '1px solid #CCCCFF' }}
+        />
         {/* only display 'Post comment' if user types something inside comment form */}
         {text.trim() !== '' && (
           <div className="flex gap-[10px] mb-3">
@@ -89,7 +91,7 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
       )}
       {/* display every top-level comment under thread */}
       {comments.map(comment => (
-        <Comment key={comment.id} type="reply" title="placeholder" user_email={comment.user_email} content={comment.content}/>
+        <Comment key={comment.id} commentCount={0} type="reply" title="placeholder" user_email={comment.user_email} content={comment.content} />
       ))}
     </div>
   )
