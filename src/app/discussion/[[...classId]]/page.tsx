@@ -88,7 +88,7 @@ const Page = () => {
 
 		<div>
 			<div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">
-				<div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-12 lg:pt-10">
+				<div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-10 lg:pt-10">
 					<div className="flex gap-[28px] items-center">
 						{/* Course code (i.e., ECS162) */}
 						<h1 className="text-3xl md:text-[40px] font-bold">{classData?.course_code}</h1>
@@ -112,7 +112,7 @@ const Page = () => {
 				{/* Display Back to Discussion button*/}
 				{(openThread || showCreateThread) && (
 					<button type="submit"
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
+									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] px-5 py-1"
 									onClick={() => {
 										setOpenThread(false)
 										setShowThreadsList(true);
