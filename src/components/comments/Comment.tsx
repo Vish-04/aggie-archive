@@ -29,7 +29,7 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content }) =
                 
                 {/* profile picture? using a placeholder user icon for now*/}
                 <div>
-                    <img className={`${isPreview ? 'w-[45px] h-[45px]' : 'w-[50px] h-[50px]'} `} src="/user.svg" alt="user icon"/> 
+                    <img className={`${isPreview ? 'w-[45px] h-[45px]' : 'w-[50px] h-[50px]'} `} src="/profile.svg" alt="user icon"/>
                 </div>
                 
                 <p className={`${isPreview ? 'text-[16px]' : 'text-[18px] font-semibold '} `}>{user_email}</p>

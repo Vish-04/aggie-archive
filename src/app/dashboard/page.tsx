@@ -139,7 +139,7 @@ export default function Dashboard(){
           ))}
         </div>
 
-        <h2 className="text-[24px] md:text-[28px] lg:text-3xl font-semibold mb-2 md:mb-6 pt-16 pb-3 md:pb-8">Archived Classes</h2>
+        <h2 className="text-[24px] md:text-[28px] lg:text-3xl font-semibold mb-2 md:mb-6 pt-16 pb-3 md:pb-2">Archived Classes</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
           {archivedClasses.map(course => (
             <ClassCard key={course.id} course={course} onToggleClass={handleClasses} onToggleArchive={handleArchive} isArchived={checkArchived}/>
