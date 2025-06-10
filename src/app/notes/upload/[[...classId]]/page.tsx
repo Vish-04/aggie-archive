@@ -2,7 +2,7 @@
 
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { fetchClass, uploadFile } from '@/utils/db';
 import { Class } from '@/utils/types';
@@ -38,22 +38,33 @@ export default function Upload(){
   }
 
   return(
-    <div>
-      <div className="flex justify-between items-center px-4 sm:px-16 py-10">
-        <div className="flex items-center gap-8">
-          <h1 className='font-bold  text-[26px] sm:text-[36px]'>{classData?.course_code}</h1>
+    <div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">
+      {/*Header*/}
+      <div className="flex justify-between pt-4 pb-6 md:pb-8 md:py-8 lg:pb-12 lg:pt-10">
+        <div className="flex gap-[28px] items-center">
+          {/* Course code (i.e., ECS162) */}
+          <h1 className="text-3xl md:text-[40px] font-bold">{classData?.course_code}</h1>
+          {/* Add to dashboard button */}
+          {/*<button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+*/}
+          {/*	Add to Dashboard*/}
+          {/*</button>*/}
         </div>
-        <div className="flex gap-2 bg-blueGray p-1 rounded-lg">
-          {/* can change it here when we merge to main to the actual discussion page */}
-          <button onClick={() => router.push(`/discussion/${classId}`)}
-                  className="p-2 rounded-lg">Discussion</button>
-          <button onClick={() => router.push(`/notes/${classId}`)}
-                  className="bg-white py-2 px-4 rounded-lg">Notes</button>
+        {/* "Discussion" and "Notes" toggle */}
+        <div className="flex justify-center items-center">
+          <div className="bg-[#ECEEF8] text-[#483183] font-medium p-1 rounded-md md:rounded-[8px]">
+            <button type="submit" className="text-[16px] md:text-[18px] rounded px-4 py-2 md:px-6 md:py-2"
+                    onClick={() => router.push(`/discussion/${classId}`)}>Discussion
+            </button>
+            <button type="submit" className="bg-white text-[16px] md:text-[18px] rounded px-4 py-2 md:px-6 md:py-2"
+                    onClick={() => router.push(`/notes/${classId}`)}>Notes
+            </button>
+          </div>
         </div>
       </div>
-      <div className="flex justify-between items-center px-4 sm:px-16 sm:pb-16 ">
+
+      <div className="flex justify-between items-center sm:pb-10">
         <div className=' border-0 sm:border border-periwinkle w-full h-full rounded-lg sm:p-12 '>
-          <h1 className='font-bold text-[20px] sm:text-[32px] sm:pb-8 pb-2'>Upload a note</h1>
+          <h1 className='font-bold text-[24px] sm:text-[32px] pb-6 md:pb-10'>Upload a note</h1>
           <div className='flex flex-col'>
             {/* I made it not resizeable here but it can be changed just remove it */}
             <textarea className=" w-full h-full  leading-none border border-periwinkle rounded-lg text-[20px] px-6 pt-4 pb-0 resize-none mb-4 placeholder-periwinkle" name="Title" id="title" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></textarea>
