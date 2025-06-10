@@ -66,19 +66,22 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
             onChange={(e) => setText(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            className={`border border-[#B0B0B0]  placeholder-[#A0A0A0] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
+            className={`border border-[#CCCCFF]  placeholder-[#AB97CC] rounded p-2 text-[16px] resize-none w-full mt-[10px] transition-all duration-300
             ${focused || text ? 'h-48' : 'h-12'} overflow-hidden`}
             style={{ minHeight: 48, border: '1px solid #CCCCFF' }}
           />
         {/* only display 'Post comment' if user types something inside comment form */}
         {text.trim() !== '' && (
-  <button
-    type="submit"
-    className="bg-gray-200 text-black rounded px-4 py-2 mt-[10px] transition-all duration-300 ease-in-out cursor-pointer"
-  >
-    Post comment
-  </button>
-)}
+          <div className="flex gap-[10px] mb-3">
+            <button
+              type="submit"
+              className="bg-[#8347E7] text-white rounded px-4 py-2 mt-[10px] transition-all duration-300 ease-in-out cursor-pointer"
+            >
+              Post comment
+            </button>
+            <button onClick={() => setText('')} type="button" className="bg-[#F6F3FF] text-[#483183]  mt-[10px] border border-[#8347E7] rounded-[6px] px-4 py-2 cursor-pointer">Cancel</button>
+          </div>
+        )}
       </form>
       {/* temporary loading message */}
       {loading && (

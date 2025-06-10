@@ -58,8 +58,8 @@ export default function DiscussionForm({ classId, onCancel, onCreateThread }: Di
             className="border border-[#CCCCFF] font-[400] rounded p-3 text-[20px] placeholder-[#AB97CC] h-[291px] resize-none"
           />
           <div className="flex gap-[17px] ml-auto mt-[15px]">
-            <button type="button" onClick={onCancel} className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">Cancel</button>
-            <button type="submit" className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">
+            <button type="button" onClick={onCancel} className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">Cancel</button>
+            <button type="submit" className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] rounded px-4 py-2 text-[20px]">
               Create thread
             </button>
           </div>

@@ -4,8 +4,9 @@ import React, {useState, useEffect} from 'react'
 import Comment from '@/components/comments/Comment';
 import DiscussionForm from '@/components/comments/DiscussionForm';
 import DiscussionThread from '@/components/comments/DiscussionThread';
-import {Class, Thread} from '@/utils/types';
-import {fetchClass, fetchThreads} from '@/utils/db';
+import {Class, Thread, User} from '@/utils/types';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import {fetchClass, fetchThreads, fetchUser, updateUser} from '@/utils/db';
 import {useParams, useRouter} from 'next/navigation';
 import InvalidPage from '@/components/InvalidPage';
 
@@ -13,6 +14,10 @@ import InvalidPage from '@/components/InvalidPage';
 // class_id should be a prop
 const Page = () => {
 	const router = useRouter();
+	const [currClasses, setCurrClasses] = useState<Class[]>([]);
+	const [userData, setUserData] = useState<User | null>(null);
+	
+	const { user } = useUser();
 
 //   console.log(user);
 	const [loading, setLoading] = useState(true);
@@ -24,23 +29,82 @@ const Page = () => {
 
 	const params = useParams();
 	const classId = params.classId?.[0] || 'No Class ID';
+	const isClassInDashboard = userData?.classes.includes(classId);
 	const [classData, setClassData] = useState<Class | null>(null);
 	const [invalidClass, setInvalidClass] = useState(false);
 
-	useEffect(() => {
-		const getClass = async () => {
-			const newClassData = await fetchClass(classId);
-			if ('message' in newClassData) {
-				setInvalidClass(true);
-			} else {
-				setClassData(newClassData);
+	const handleAddToDashboard = async () => {
+		console.log("Added to dashboard: ", classData?.course_code);
+		if (classData && userData) {
+			const updated = [...currClasses, classData];
+			setCurrClasses(updated);
+			const classIds = updated.map(cls => cls.id);
+		
+			try {
+				await updateUser(userData.email, { classes: classIds });
+				setUserData(prev => prev ? { ...prev, classes: classIds } : null);
+			} catch (err) {
+				console.error('Failed to add class to dashboard:', err);
 			}
+		}
+	};
+	  
+	const handleRemoveFromDashboard = async () => {
+		if (userData) {
+			const updatedClassIds = userData.classes.filter(id => id !== classId);
+
+			setCurrClasses(prev => prev.filter(c => c.id !== classId));
+
+			const updatedUserData = { classes: updatedClassIds };
+			setUserData(prev => prev ? { ...prev, ...updatedUserData } : null);
+		
+			try {
+				await updateUser(userData.email, updatedUserData);
+			} catch (error) {
+				console.error('Failed to update user:', error);
+			}
+		}
+	  };
+
+	  useEffect(() => {
+		const getClassAndUser = async () => {
+			const classRes = await fetchClass(classId);
+			if ('message' in classRes) {
+				setInvalidClass(true);
+				setLoading(false);
+				return;
+			}
+		
+			setClassData(classRes);
+		
+			if (user) {
+				const userRes = await fetchUser(user.email!);
+				if ('message' in userRes) {
+				window.location.href = '/api/auth/login';
+				return;
+				}
+		
+				setUserData(userRes);
+	
+				const fetchedClasses: Class[] = [];
+				
+				await Promise.all(
+					userRes.classes.map(async (crsId: string) => {
+						const cls = await fetchClass(crsId);
+						if (!('message' in cls)) fetchedClasses.push(cls);
+					})
+				);
+		
+				setCurrClasses(fetchedClasses);
+		  }
+	
+		  setLoading(false);
 		};
+	
+		getClassAndUser();
+	  }, [user, classId]);
 
-		getClass();
-	}, [classId]);
-
-	//moved this outside so i can call it later after user creates a new thread so they can see new thread when they click "back to discussion" without refreshing
+	
 	async function getThreads() {
 		try {
 			const res = await fetchThreads(classId);
@@ -60,7 +124,7 @@ const Page = () => {
 
 	useEffect(() => {
 		getThreads();
-	}, []);
+	}, [classId]);
 
 	const handleOpenForm = () => {
 		setShowCreateThread(true);
@@ -83,7 +147,7 @@ const Page = () => {
 	if (invalidClass) {
 		return <InvalidPage/>;
 	}
-
+	console.log("code", classData?.course_code);
 	return (
 
 		<div>
@@ -91,15 +155,32 @@ const Page = () => {
 				<div className="flex justify-between">
 					<div className="flex gap-[28px] h-[52px] pb-14 pt-10 pl-18 items-center">
 						{/* Course code (i.e., ECS162) */}
+						
 						<h1 className="text-[40px] h-[52px] font-bold">{classData?.course_code}</h1>
 						{/* Add to dashboard button */}
-						<button type="submit" className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]">+
-							Add to Dashboard
-						</button>
+						{!isClassInDashboard ?
+							(
+								<button
+									type="button"
+									className="bg-[#8347E7] font-[400] text-white text-[16px] rounded w-[178px] h-[36px]"
+									onClick={handleAddToDashboard}
+								>
+									+ Add to Dashboard
+								</button>
+							) : (
+								<button
+									type="button"
+									className="bg-[#F6F3FF] font-[400] text-[#483183] text-[16px] rounded w-[226px] h-[36px] border border-[#8347E7]"
+									onClick={handleRemoveFromDashboard}
+								>
+									- Remove from Dashboard
+								</button>
+							)
+						}
 					</div>
 					{/* "Discussion" and "Notes" toggle */}
 					<div className="flex justify-center items-center">
-						<div className="bg-[#ECEEF8] text-[#483183] font-medium w-[238px] p-1 rounded-[8px] h-fit">
+						<div className="bg-[#F6F3FF] text-[#483183] font-medium w-[238px] p-1 rounded-[8px] h-fit">
 							<button type="submit" className="bg-white text-[18px] w-[135px] h-[39px] rounded px-4 py-2"
 											onClick={() => router.push(`/discussion/${classId}`)}>Discussion
 							</button>
@@ -113,7 +194,7 @@ const Page = () => {
 				{openThread && (
 
 					<button type="submit"
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
+									className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px]  h-[36px] px-6 py-1"
 									onClick={() => {
 										setOpenThread(false)
 										setShowThreadsList(true);
@@ -124,7 +205,7 @@ const Page = () => {
 
 				<div className={`rounded-lg ${showThreadsList ? '' : 'hidden'}`}>
 					<button type="button" onClick={handleOpenForm}
-									className="bg-[#ECEEF8] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
+									className="bg-[#F6F3FF] text-[#483183] border border-[#8347E7] text-[16px] rounded-[6px] h-[36px] w-[154px]">+
 						Create thread
 					</button>
 					{/* temporary loading message */}
