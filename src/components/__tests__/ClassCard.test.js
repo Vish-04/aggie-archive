@@ -13,6 +13,13 @@ const toggleClass = jest.fn()
 const toggleArchive = jest.fn()
 
 describe('ClassCard', () => {
+    const onToggleClass = jest.fn();
+    const onToggleArchive = jest.fn();
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+    
     test('renders class card attributes', () => {
         render(
             <ClassCard
