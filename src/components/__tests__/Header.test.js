@@ -1,15 +1,26 @@
 import { render, screen } from '@testing-library/react'
 import Header from '../FinalHeader'
 
-// Mock useUser hook from auth0
+// set user to nil
 jest.mock('@auth0/nextjs-auth0/client', () => ({
   useUser: () => ({
-    user: null,        // No user logged in
-    isLoading: false,  // Not loading
+    user: null,
+    isLoading: false,
   }),
 }))
 
-test('renders header title', () => {
+// render header when no user is logged in
+test('render header', () => {
   render(<Header />)
   expect(screen.getByText(/log in/i)).toBeInTheDocument()
+  expect(screen.getByText(/sign up/i)).toBeInTheDocument()
 })
+
+// render all logos
+test('render header logo', () => {
+    render(<Header />)
+    const logo = screen.getAllByAltText('Noteorbit logo')
+    expect(logo.length).toBeGreaterThan(0)
+})
+
+
