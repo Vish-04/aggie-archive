@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { fetchClass, fetchDocuments } from '@/utils/db';
 import { Class, Document } from '@/utils/types';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function Notes(){
     const router = useRouter();
@@ -15,6 +16,14 @@ export default function Notes(){
   const [classData, setClassData] = useState<Class | null>(null);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [invalidClass, setInvalidClass] = useState(false);
+
+	const { isLoading, user } = useUser();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      window.location.href = '/api/auth/login';
+    }
+  }, [isLoading, user]);
 
   useEffect(() => {
     const getClass = async () => {
@@ -50,6 +59,23 @@ export default function Notes(){
     if (invalidClass) {
         return <InvalidPage />;
     }
+
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
+  }
 
     return(
       <div className="px-6 md:px-12 lg:px-16 pt-6 md:pt-8">

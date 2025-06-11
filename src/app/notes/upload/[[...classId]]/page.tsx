@@ -19,7 +19,14 @@ export default function Upload(){
   const [title, setTitle] = useState<string>('');
   const [invalidClass, setInvalidClass] = useState(false);
 
-  const { user } = useUser();
+  const { isLoading, user } = useUser();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      window.location.href = '/api/auth/login';
+    }
+  }, [isLoading, user]);
+
   useEffect(() => {
     const getClass = async () => {
       const newClassData = await fetchClass(classId);
@@ -35,6 +42,22 @@ export default function Upload(){
 
   if (invalidClass) {
     return <InvalidPage />;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
   }
 
   return(

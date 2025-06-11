@@ -14,7 +14,14 @@ export default function Dashboard(){
   const [archivedClasses, setArchivedClasses] = useState<Class[]>([]);
   const [userData, setUserData] = useState<User | null>(null);
   
-  const { user } = useUser();
+  const { isLoading, user } = useUser();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      window.location.href = '/api/auth/login';
+    }
+  }, [isLoading, user]);
+  
 
   useEffect(() => {
     if (user) {
@@ -123,7 +130,21 @@ export default function Dashboard(){
       return archivedClasses.some(crs => crs.course_code == crsNum);
   }
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
+  }
 
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white text-gray-800 min-h-screen p-6">

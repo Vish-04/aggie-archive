@@ -15,7 +15,7 @@ const Page = () => {
 	const router = useRouter();
 	const [currClasses, setCurrClasses] = useState<Class[]>([]);
 	const [userData, setUserData] = useState<User | null>(null);
-	const { user } = useUser();
+	const { isLoading, user } = useUser();
 
 	const [loading, setLoading] = useState(true);
 	const [showCreateThread, setShowCreateThread] = useState(false);
@@ -31,6 +31,13 @@ const Page = () => {
 	const [invalidClass, setInvalidClass] = useState(false);
 	const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
 	const [showDropdownMenu, setShowDropdownMenu] = useState(false);
+
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      window.location.href = '/api/auth/login';
+    }
+  }, [isLoading, user]);
 
 	const handleAddToDashboard = async () => {
 		if (classData && userData) {
@@ -154,9 +161,27 @@ const Page = () => {
 		setShowDropdownMenu(false);
 	}
 
+	if (isLoading) {
+		return (
+		  <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+			Loading...
+		  </div>
+		);
+	  }
+	
+	  if (!user) {
+		return (
+		  <div className="flex justify-center items-center py-20 font-medium text-darkPurple text-xl">
+			Loading...
+		  </div>
+		);
+	  }
+	  
 	if (invalidClass) {
 		return <InvalidPage />;
 	}
+
+
 	return (
 
 		<div>
