@@ -17,8 +17,6 @@ const Page = () => {
 	const [userData, setUserData] = useState<User | null>(null);
 	const { user } = useUser();
 
-
-	console.log(user);
 	const [loading, setLoading] = useState(true);
 	const [showCreateThread, setShowCreateThread] = useState(false);
 	const [activeThread, setActiveThread] = useState<Thread | null>(null);

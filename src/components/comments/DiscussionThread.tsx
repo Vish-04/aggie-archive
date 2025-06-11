@@ -24,7 +24,6 @@ const DiscussionThread: React.FC<CommentProps> = ({ thread }) => {
   const getComments = useCallback(async () => {
     try {
       const res = await fetchPosts(thread.id);
-      console.log("COMMENTS", res);
       setCommentsCount(res.length);
       setComments(res);
     } catch (err) {

@@ -47,16 +47,7 @@ const Comment: React.FC<CommentProps> = ({ type, user_email, title, content, com
           <p className={`${isReply ? 'text-[16px]' : 'hidden'} `}>Reply in thread</p>
         </button>
         <button className="flex items-center gap-[8px]"><img className="w-5 h-5 md:w-[20px] md:h-[20px]" src="/thumbs_up.svg" alt="like button" /><p className={`${isPreview ? 'text-[14px]' : 'text-[16px]'} `}>0</p></button>
-        <button className={`absolute left-24 md:left-28 md:w-[24px] md:h-[24px] ${isPreview ? "hidden" : ""} ${isReply ? 'left-[240px] md:left-[273px]' : ""}`}><img className="" src="/trashcan.svg"></img></button>
       </div>
-      {isPreview &&
-        <button className="absolute right-[-20px] md:right-[-32px] mt-[120px] md:mt-[155px] hidden group-hover:flex gap-2 md:gap-[10px] font-[500] text-[12px] md:text-[16px] text-[#B3261E] md:w-[104px] md:h-[35px] rounded-sm bg-[#F6F3FF] px-2 py-1 md:px-3 md:py-2"
-          style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-
-          <img className="h-[15px] md:w-[18px] md:h-[19px]" src="/trashcan.svg" alt="trashcan icon" />
-          Delete
-        </button>
-      }
     </div>
   )
 }
