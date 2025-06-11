@@ -91,7 +91,7 @@ export default function Header() {
 					</div>
 				}
 			</div>
-			<hr className='mx-5 lg:mx-10 border-t-1 border-periwinkle '/>
+			<hr className='mx-5 lg:mx-10 border-t-1 border-periwinkle'/>
 		</div>
 
 	)
