@@ -9,6 +9,8 @@ jest.mock('@auth0/nextjs-auth0/client', () => ({
   
   // mocks createThread function from utils/db
   jest.mock('../../utils/db', () => ({
+    __esModule: true,
+    fetchPosts: jest.fn().mockResolvedValue([]),
     createThread: jest.fn().mockResolvedValue({
       id: 'thread-1',
       name: 'Test Title',
@@ -37,6 +39,8 @@ jest.mock('@auth0/nextjs-auth0/client', () => ({
   import Comment from '../comments/Comment';
   import DiscussionForm from '../comments/DiscussionForm';
   import DiscussionThread from '../comments/DiscussionThread';
+  import { createPost } from '../../utils/db';
+
   
   // COMMENT TESTS
   //------UI-------
@@ -101,17 +105,28 @@ jest.mock('@auth0/nextjs-auth0/client', () => ({
     expect(mockOnCreateThread).toHaveBeenCalledTimes(1);
   });
   
-  //WIP:
-  // test('clicking post comment calls createPost', async () => {
-  //   const thread = {
-  //     id: 'thread-1',
-  //     class_id: 'class-1',
-  //     name: 'Test title',
-  //     content: 'Test content',
-  //     user_email: 'test@user.com',
-  //   };
-  //   render(<DiscussionThread thread={thread} />);
+    test('clicking post comment calls createPost', async () => {
+    const thread = {
+      id: 'thread-1',
+      class_id: 'class-1',
+      name: 'Test title',
+      content: 'Test content',
+    };
+    render(<DiscussionThread thread={thread} />);
+    const textarea = screen.getByPlaceholderText(/add comment/i);
+    const user = userEvent.setup();
+    await user.type(textarea, 'test comment');
     
-  // });
+    const postButton = await screen.findByRole('button', {name: /post comment/i});
+    await user.click(postButton);
+
+    expect(createPost).toHaveBeenCalledWith(
+        'test comment',
+        'test@example.com',
+        'thread-1',
+        'class-1'
+    );
+
+  });
   
   
