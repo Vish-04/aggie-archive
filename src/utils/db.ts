@@ -60,7 +60,7 @@ export const createPost = async (content: string, user_email: string, thread_id:
 
 export const uploadFile = async (
     file: File,
-    fileName: string,
+    title: string,
     class_id: string,
     user_email: string
 ): Promise<Document> => {
@@ -68,10 +68,10 @@ export const uploadFile = async (
     const presignedRes = await fetch(`/api/create/document`, {
         method: 'POST',
         body: JSON.stringify({
-            fileName,
+            fileName: title,
             fileType: file.type,
             class_id,
-            user_email
+            user_email,
         })
     });
 
