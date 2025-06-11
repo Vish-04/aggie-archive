@@ -1,6 +1,13 @@
-// src/components/__tests__/Header.test.tsx
 import { render, screen } from '@testing-library/react'
-import Header from '../Header'
+import Header from '../FinalHeader'
+
+// Mock useUser hook from auth0
+jest.mock('@auth0/nextjs-auth0/client', () => ({
+  useUser: () => ({
+    user: null,        // No user logged in
+    isLoading: false,  // Not loading
+  }),
+}))
 
 test('renders header title', () => {
   render(<Header />)
