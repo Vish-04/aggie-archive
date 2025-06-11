@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import ClassCard from '../ClassCard'
 
 // create fake course
@@ -13,8 +13,6 @@ const toggleClass = jest.fn()
 const toggleArchive = jest.fn()
 
 describe('ClassCard', () => {
-    const onToggleClass = jest.fn();
-    const onToggleArchive = jest.fn();
 
     afterEach(() => {
         jest.clearAllMocks();
