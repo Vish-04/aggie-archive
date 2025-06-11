@@ -2,7 +2,7 @@ import { React, act } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchBar from '../SearchBar';
 
-// Mock fetch globally
+// fetch ECS 162
 beforeEach(() => {
   global.fetch = jest.fn(() =>
     Promise.resolve({
@@ -18,6 +18,7 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
+// test fetching and displaying of classes
 describe('SearchBar', () => {
   const onToggleClass = jest.fn();
 
