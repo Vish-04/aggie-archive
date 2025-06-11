@@ -32,7 +32,12 @@ describe('SearchBar', () => {
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith('/api/fetch/class/courses?search=ecs%20');
     });
-  
+
+    // check if course code exists
+    const courseCode = await screen.findByText('ECS162');
+    expect(courseCode).toBeInTheDocument();
+
+    // check if course title exists
     const courseTitle = await screen.findByText('Web Programming');
     expect(courseTitle).toBeInTheDocument();
   });
